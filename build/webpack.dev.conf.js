@@ -35,7 +35,8 @@ module.exports = merge(baseWebpackConfig, {
 })
 
 
-var pages =  utils.getMultiEntry('./src/'+config.moduleName+'/**/**/*.html');
+// var pages =  utils.getMultiEntry('./src/'+config.moduleName+'/**/**/*.html');
+var pages = config.build.productionPages
 // var pages = {
 //     'views/ymz/test': './src/views/ymz/test/test.html'
 // }
