@@ -26,11 +26,11 @@ module.exports = {
         // Set to `true` or `false` to always turn it on or off
         bundleAnalyzerReport: process.env.npm_config_report,
         productionEntries:{
-            'views/videoActive/video': './src/views/videoActive/video/video.js',
+            'views/videoActive/jumptwo': './src/views/videoActive/jumptwo/jumptwo.js',
             'views/ymz/test': './src/views/ymz/test/test.js'
         },
         productionPages:{
-            'views/videoActive/video': './src/views/videoActive/video/video.html',
+            'views/videoActive/jumptwo': './src/views/videoActive/jumptwo/jumptwo.html',
             'views/ymz/test': './src/views/ymz/test/test.html'
         }
     },

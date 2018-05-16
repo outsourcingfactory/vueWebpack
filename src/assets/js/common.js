@@ -1,75 +1,11 @@
 
-import conf from './conf';
-
-import axios from 'axios';
+import wx from 'weixin-js-sdk';
+import axios from 'assets/js/api'
 
 var oproto = Object.prototype;
 var serialize = oproto.toString;
-var Rxports = {
-	
-	
-	/**
-	  * 封装axios，减少学习成本，参数基本跟jq ajax一致
-	  * @param {String} type			请求的类型，默认post
-	  * @param {String} url				请求地址
-	  * @param {String} time			超时时间
-	  * @param {Object} data			请求参数
-	  * @param {String} dataType		预期服务器返回的数据类型，xml html json ...
-	  * @param {Object} headers			自定义请求headers
-	  * @param {Function} success		请求成功后，这里会有两个参数,服务器返回数据，返回状态，[data, res]
-	  * @param {Function} error		发送请求前
-	  * @param return 
-	*/
-	ajax:function (opt){
-		
-		var opts = opt || {};
-		
-		if (!opts.url) {
-			alert('请填写接口地址');
-			return false;
-		}
-		
-		axios({
-			method: opts.type || 'post',
-			url: opts.url,
-			params: opts.data || {},
-			headers: opts.headers || {
-			  	'Content-Type':'application/x-www-form-urlencoded'
-			},
-			// `baseURL` 将自动加在 `url` 前面，除非 `url` 是一个绝对 URL。
-  			// 它可以通过设置一个 `baseURL` 便于为 axios 实例的方法传递相对 URL
-			baseURL:'http://t.lanchenglv.com/tp5demo/index.php/',
-			timeout: opts.time || 10*1000,
-			responseType: opts.dataType || 'json'
-		}).then(function(res){
-			
-			if(res.status == 200 ){
-				
-				if(opts.success){
-					opts.success(res.data,res);
-				}
-				
-			}else{
-				
-				if (data.error) {
-					opts.error(error);
-				}else{
-					alert('好多人在访问呀，请重新试试[timeout]');
-				}
-				
-			}
-			
-				
-		}).catch(function (error){
-			console.log(error);
-			if (opts.error) {
-				opts.error(error);
-			}else{
-				alert('好多人在访问呀，请重新试试[timeout]');
-			}
-		});
-			
-	},
+export let na = navigator.userAgent.toLowerCase();
+export var Rxports = {
 	/*判定是否类数组，如节点集合，纯数组，arguments与拥有非负整数的length属性的纯JS对象*/
 	isArrayLike:function(obj) {
     if (!obj)
@@ -118,7 +54,6 @@ var Rxports = {
 	  * @param return
 	*/
 	getUrlQuery:function (name,Url){
-	
 	   //URL GET 获取值
 　　   var reg = new RegExp("(^|\\?|&)"+ name +"=([^&]*)(\\s|&|$)", "i"),
              url = Url || location.href;
@@ -126,13 +61,151 @@ var Rxports = {
 　　     return unescape(RegExp.$2.replace(/\+/g, " "));
 　　     return "";
 	
-	}
+	},
 
     
 };
+export let ymzBaseFun = {
+    /**
+     * 下载App
+     */
+    downloadApp(){
+        if(na.match(/micromessenger/i)){
+            window.location.href = "https://a.app.qq.com/o/simple.jsp?pkgname=com.uxin.live";
+        }else if(na.match(/(iphone|ipod|ios|ipad)/i)){
+            window.location.href = "https://itunes.apple.com/cn/app/hong-doulive/id1137896285?mt=8";
+        }else{
+            window.location.href = "https://download.hongrenshuo.com.cn/apk/YXLive_publish_H5GG_sign.apk";
+        }
+    },
+    /**
+     *  滚动条在Y轴上的滚动距离
+     */
+    getScrollTop: function () {
+        var scrollTop = 0, bodyScrollTop = 0, documentScrollTop = 0;
+        if (document.body) {
+            bodyScrollTop = document.body.scrollTop;
+        }
+        if (document.documentElement) {
+            documentScrollTop = document.documentElement.scrollTop;
+        }
+        scrollTop = (bodyScrollTop - documentScrollTop > 0) ? bodyScrollTop : documentScrollTop;
+        return scrollTop;
+    },
+    /**
+     *  文档的总高度
+     */
+    getScrollHeight: function () {
+        var scrollHeight = 0, bodyScrollHeight = 0, documentScrollHeight = 0;
+        if (document.body) {
+            bodyScrollHeight = document.body.scrollHeight;
+        }
+        if (document.documentElement) {
+            documentScrollHeight = document.documentElement.scrollHeight;
+        }
+        scrollHeight = (bodyScrollHeight - documentScrollHeight > 0) ? bodyScrollHeight : documentScrollHeight;
+        return scrollHeight;
+    },
+    /**
+     * 浏览器视口的高度
+     */
+    getWindowHeight: function () {
+        var windowHeight = 0;
+        if (document.compatMode == "CSS1Compat") {
+            windowHeight = document.documentElement.clientHeight;
+        } else {
+            windowHeight = document.body.clientHeight;
+        }
+        return windowHeight;
+    },
+    /**
+     * 判断是否到达底部
+     */
+    aleadyBottom:function () {
+        if (this.getScrollTop() + this.getWindowHeight() == this.getScrollHeight()) {
+            return true;
+        }
+    },
+    /**
+     * 微信二次分享
+     */
+    wxShareVue:function (shareTitle, shareDesc, shareImageUrl) {
+        let pageUrl = window.location.href.split('#')[0];
+        pageUrl = encodeURIComponent(pageUrl);
+        axios.HttpPost('/wxauth', {rq_url: pageUrl}).then((res) => {
+            wx.config({
+                debug: false,
+                appId: res.data.appId,
+                timestamp: res.data.timestamp,
+                nonceStr: res.data.nonceStr,
+                signature: res.data.signature,
+                jsApiList: [
+                    "onMenuShareTimeline", "onMenuShareQQ", "onMenuShareAppMessage", "onMenuShareQZone"
+                    // 所有要调用的 API 都要加到这个列表中
+                ]
+            });
+        }).catch((res)=>{
+            console.log(res);
+        })
+        wx.ready(function () {
+            //分享到朋友圈
+            wx.onMenuShareTimeline({
+                title: shareTitle, // 分享标题
+                imgUrl: shareImageUrl, // 分享图标
+                link: '',
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+            //分享给朋友
+            wx.onMenuShareAppMessage({
+                title: shareTitle, // 分享标题
+                desc: shareDesc, // 分享描述
+                link: '', // 分享链接
+                imgUrl: shareImageUrl, // 分享图标
+                type: '', // 分享类型,music、video或link，不填默认为link
+                dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+            //分享到QQ空间
+            wx.onMenuShareQZone({
+                title: shareTitle, // 分享标题
+                desc: shareDesc, // 分享描述
+                link: '', // 分享链接
+                imgUrl: shareImageUrl, // 分享图标
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
 
+            //分享到QQ
+            wx.onMenuShareQQ({
+                title: shareTitle, // 分享标题
+                desc: shareDesc, // 分享描述
+                link: '', // 分享链接
+                imgUrl: shareImageUrl, // 分享图标
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+        });
+    }
+}
 
-export default Rxports;
 
 
 
