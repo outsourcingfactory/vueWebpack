@@ -1,4 +1,5 @@
 <template>
+    <!--正在加载中-->
     <div class="meileOut">
         <div class="meile">
             {{tipDesc}}

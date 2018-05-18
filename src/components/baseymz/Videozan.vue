@@ -1,4 +1,5 @@
 <template>
+    <!--跳一跳类似模板组件-->
     <div class="videozan">
         <div class="imgout" @click="goVideo(videoDesc.id)">
             <div class="piaoNumber">{{videoDesc.likeCount*100}}人气值</div>

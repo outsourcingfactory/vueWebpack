@@ -1,4 +1,5 @@
 <template>
+    <!--图片组件-->
     <div class="onePic">
         <img :src="imgSrc">
     </div>

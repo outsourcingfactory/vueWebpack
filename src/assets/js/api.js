@@ -9,10 +9,12 @@ import axios from 'axios';
 let baseURL
 if (process.env.NODE_ENV == 'development') {
     baseURL = 'http://playtest.uxin.com/';
+    // baseURL = 'https://live.hongdoulive.com';
 } else if (process.env.NODE_ENV == 'debug') {
     baseURL = 'http://playtest.uxin.com/';
 } else if (process.env.NODE_ENV == 'production') {
     baseURL = 'https://live.hongdoulive.com';
+    // baseURL = 'http://playtest.uxin.com/';
 }
 /**
   * 封装的全局ajax请求
