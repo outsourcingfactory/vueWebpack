@@ -12,7 +12,8 @@ fastclick.attach(document.body)
 
 import VueLazyload from 'vue-lazyload'
 Vue.use(VueLazyload, {
-    loading: 'https://img.hongrenshuo.com.cn/h5/placehold-video-ymz.png'
+    loading: 'https://img.hongrenshuo.com.cn/h5/placehold-video-ymz.png',
+    error:'https://img.hongrenshuo.com.cn/h5/placehold-video-ymz.png'
 })
 
 new Vue({
