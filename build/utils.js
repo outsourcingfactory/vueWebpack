@@ -22,6 +22,12 @@ exports.cssLoaders = function (options) {
             sourceMap: options.sourceMap
         }
     }
+    const postcssLoader = {
+        loader: 'postcss-loader',
+        options: {
+            sourceMap: options.sourceMap
+        }
+    }
     //支持px 转rem
     const px2remLoader = {
         loader: 'px2rem-loader',
@@ -33,7 +39,7 @@ exports.cssLoaders = function (options) {
     // generate loader string to be used with extract text plugin
     function generateLoaders(loader, loaderOptions) {
         // var loaders = [cssLoader]
-        const loaders = options.usePostCSS ? [cssLoader, postcssLoader, px2remLoader] : [cssLoader, px2remLoader]
+        const loaders = options.usePostCSS ? [cssLoader, postcssLoader, px2remLoader] : [cssLoader, postcssLoader,px2remLoader]
         if (loader) {
             loaders.push({
                 loader: loader + '-loader',

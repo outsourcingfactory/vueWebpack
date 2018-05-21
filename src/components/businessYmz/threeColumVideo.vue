@@ -49,6 +49,7 @@
             height: 173px;
             margin-top: 2px;
             margin-left: 1px;
+            overflow: hidden;
             .example{
                 position: absolute;
                 top:6px;
@@ -76,6 +77,10 @@
             }
             &:nth-child(3n-2){
                 margin-left: 0;
+            }
+            img{
+                width: 100%;
+                height: auto;
             }
         }
 
