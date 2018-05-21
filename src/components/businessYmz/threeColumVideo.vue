@@ -48,7 +48,7 @@
             position: relative;
             height: 173px;
             margin-top: 2px;
-            margin-left: 1.5px;
+            margin-left: 1px;
             .example{
                 position: absolute;
                 top:6px;
