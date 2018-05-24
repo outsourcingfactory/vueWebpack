@@ -5,13 +5,13 @@
                 <div class="topimage" :style="bgTopImage"></div>
                 <div class="desc">
                     <div class="title">
-                        为你怦然心动
+                        野男人晒卡！
                     </div>
-                    <div class="subTitle">
-                        @KilaKila有读君 发起
-                    </div>
+                    <!--<div class="subTitle">-->
+                        <!--@KilaKila有读君 发起-->
+                    <!--</div>-->
                     <div class="descContent">
-                        在我的青春里，除了夏日午后的蝉鸣、课堂老师的唠叨、操场奔跑的身影，还有你，还有你盛着星星的眼睛与渐渐加速的心跳……朋友，超人气少女漫《怦然心动》了解一下⁄(⁄⁄•⁄ω⁄•⁄⁄)⁄  截至4.18，写下你心中的《怦然心动》同人小故事，点赞排名前100的作者各奖励30元现金~
+                        各位夫人们，老公的卡get了多少重复了多少呢？来晒晒你都有什么卡吧~ 虽然不全，但却仍是独属于我专属羁绊。顺便来活动区看看传说中的四大小天王吧~发布视频带#野男人晒卡#标签，截止6.3，随机抽5个欧洲人或非洲人，送“集卡辛苦了”恋与周边礼包~
                     </div>
                 </div>
             </div>
@@ -49,10 +49,9 @@
     import Wxcontent from 'components/baseymz/Wxcontent'
     import {ymzBaseFun, na} from 'assets/js/common'
     import Toast from 'assets/js/toast'
-
-    let shareTitle = '挑战15秒微故事，赢取千元奖金！';
-    let shareDesc = '原创or同人，小说or段子，15秒你永远不会知道有多精彩！';
-    let shareImageUrl = 'https://img.hongrenshuo.com.cn/h5/fiftystory-wxshare-ymz.png';
+    var shareTitle = '恋与野男人晒卡召集！赢周边礼包！';
+    var shareDesc = '来看看别家太太，最欧有多欧？最非有多非？';
+    var shareImageUrl = 'https://img.hongrenshuo.com.cn/h5/sexmancall-wxshare-ymz.png';
     export default {
         data() {
             return {
@@ -60,7 +59,7 @@
                 tab_2_class: '',
                 iActive: false,
                 bgTopImage:{
-                    backgroundImage: "url(" + ("https://img.hongrenshuo.com.cn/h5/novelheart-topimage-ymz.jpg?x-oss-process=image/resize,m_mfit,h_211,w_375,limit_0/crop,w_375,h_211,g_center") + ")",
+                    backgroundImage: "url(" + ("https://img.hongrenshuo.com.cn/h5/sexmancall-bgImage-ymz.png?x-oss-process=image/resize,m_mfit,h_211,w_375,limit_0/crop,w_375,h_211,g_center") + ")",
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "100% 100%",
                 },
@@ -68,8 +67,8 @@
                     exampleVideoList: [],
                     showVideoList: []
                 },
-                exampleVideo: ['1135389942294249538', '1135406911710036007', '1135313599250563114', '1135388902912163865'],
-                tagId: 32439,
+                exampleVideo: ['1137638031256190996', '1137615190620110862'],
+                tagId: 35679,
                 type: 0,//0 最热 1 最新
                 categoryType: 2,
                 page: 1,
@@ -84,6 +83,7 @@
                     window.location.href = "https://download.hongrenshuo.com.cn/apk/YXLive_publish_H5GG_sign.apk";
                 },
                 showWx: false,
+                leftActive:true,
             }
         },
         created() {
@@ -155,7 +155,7 @@
                     .then((res) => {
                         if (res.data.code === 200) {
 //                            给示范视频打标记
-                            if (this.leftActive) {
+                            if (!this.iActive) {
                                 for (let i = 0; i < res.data.data.length; i++) {
                                     for (let j = 0; j < this.exampleVideo.length; j++) {
                                         if (res.data.data[i].videoDetailResp.videoResp.idStr == this.exampleVideo[j]) {

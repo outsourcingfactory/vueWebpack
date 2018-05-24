@@ -51,7 +51,7 @@
                 showload:true,
                 algoBottom:false,
                 leftActive:true,
-                rightActive:false
+                rightActive:false,
             }
         },
         created(){
@@ -71,11 +71,8 @@
                                     this.showload = false;
                                     this.tipDesc = '没有更多...';
                                 });
-                                this.videoList = this.videoList.concat(res.data.data);
-                            } else {
-                                this.videoList = this.videoList.concat(res.data.data);
                             }
-                            console.log(this.videoList)
+                            this.videoList = this.videoList.concat(res.data.data);
                         }else{
                             //等待封装toast
                         }
@@ -85,7 +82,7 @@
                     })
             },
             _getBottom(){
-                if(ymzBaseFun.aleadyBottom() && !this.algoBottom){
+                if(ymzBaseFun.aleadyBottom() && this.algoBottom){
                     this.page++;
                     this.tipDesc = '上滑加载更多...';
                     this.showload = true;
