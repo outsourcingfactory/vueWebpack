@@ -2,7 +2,7 @@
     <!--跳一跳类似模板组件-->
     <div class="videozan" v-bind:style="{background:videostyle.contentBg,borderColor:videostyle.bordercolor}">
         <div class="imgout" @click="goVideo(videoDesc.videoDetailResp.videoResp.idStr)">
-            <div class="piaoNumber" v-bind:style="{color:videostyle.authorname}">{{videoDesc.likeCount*10}}人气值</div>
+            <div class="piaoNumber" v-bind:style="{color:videostyle.authorname}">{{videoDesc.likeCount*100}}人气值</div>
             <img v-lazy="`${videoDesc.videoDetailResp.videoResp.coverPic}&x-oss-process=image/resize,m_mfit,h_97,w_170,limit_0/crop,w_170,h_97,g_center`">
             <div class="showVideo">
                 <img src="https://img.hongrenshuo.com.cn/h5/starcp3-showVideo-ymz.png" alt="">

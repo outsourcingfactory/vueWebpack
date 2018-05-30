@@ -1,7 +1,7 @@
 <template>
     <!--正在加载中-->
     <div class="meileOut">
-        <div class="meile">
+        <div class="meile" :style="{color:color}">
             {{tipDesc}}
         </div>
         <img src="https://img.hongrenshuo.com.cn/h5/huancun.gif" v-show="showload"/>
@@ -18,6 +18,10 @@
             showload:{
                 type:Boolean,
                 default:true
+            },
+            color:{
+                type:String,
+                default:'#000'
             }
         }
     }
