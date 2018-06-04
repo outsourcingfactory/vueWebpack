@@ -5,14 +5,14 @@
                 <div class="topimage" :style="bgTopImage"></div>
                 <div class="desc">
                     <div class="title">
-                        声控福利社-15秒展示你的声音
+                        强行牵住命运的红线
                     </div>
                     <!--<div class="subTitle">-->
                         <!--@KilaKila有读君 发起-->
                     <!--</div>-->
                     <div class="descContent">
-                        你是loli音,御姐音,正太音,青年音还是大叔音?
-                        不要大意的亮出你的声音,发布视频带#声控福利社#标签,截止到6月5日,点赞前三送KilaKila视频推荐位1天,以及分别可获得200,150,100现金红包!前五十均有现金红包瓜分权!
+                        想和Ta来场浪漫邂逅吗？当梦想照进现实，看，我的镜头有魔法！无论是二次元男神、还是三次元爱豆，用镜头打破次元壁，在现实中和Ta结下情缘吧，姑娘，你的红线已经准备好了！
+                        截止到6月10日24:00，点赞量第一的作品将登上KilaKila官方微博并24小时置顶哦～快和你的爱豆一起登顶吧！
                     </div>
                 </div>
             </div>
@@ -50,9 +50,9 @@
     import Wxcontent from 'components/baseymz/Wxcontent'
     import {ymzBaseFun, na} from 'assets/js/common'
     import Toast from 'assets/js/toast'
-    var shareTitle = '#声控福利社#15秒晒出你的声音!';
-    var shareDesc = '现金奖励+视频推荐位！不要大意的亮出你的声音！';
-    var shareImageUrl = 'https://img.hongrenshuo.com.cn/h5/fiftyvoice-wxshare-ymz.png';
+    var shareTitle = '强行牵住命运的红线';
+    var shareDesc = '我的镜头有魔法，和Ta来场浪漫邂逅吧！';
+    var shareImageUrl = 'https://img.hongrenshuo.com.cn/h5/fateline-wxshare-ymz.jpg';
     export default {
         data() {
             return {
@@ -60,7 +60,7 @@
                 tab_2_class: '',
                 iActive: false,
                 bgTopImage:{
-                    backgroundImage: "url(" + ("https://img.hongrenshuo.com.cn/h5/fiftyvoice-bgimage-ymz.png?x-oss-process=image/resize,m_mfit,h_211,w_375,limit_0/crop,w_375,h_211,g_center") + ")",
+                    backgroundImage: "url(" + ("https://img.hongrenshuo.com.cn/h5/fateline-bgimage-ymz.png?x-oss-process=image/resize,m_mfit,h_211,w_375,limit_0/crop,w_375,h_211,g_center") + ")",
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "100% 100%",
                 },
@@ -68,8 +68,8 @@
                     exampleVideoList: [],
                     showVideoList: []
                 },
-                exampleVideo: ['1137554571451695155', '1135285273941245962','1137633371216674878'],
-                tagId: 36136,
+                exampleVideo: ['1137257840751149099', '1137251557213995032'],
+                tagId: 38641,
                 type: 0,//0 最热 1 最新
                 categoryType: 2,
                 page: 1,

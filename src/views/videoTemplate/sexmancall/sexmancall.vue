@@ -95,7 +95,7 @@
         },
         methods:{
             _getBottom() {
-                if (ymzBaseFun.aleadyBottom() && !this.algoBottom) {
+                if (ymzBaseFun.aleadyBottom() && this.algoBottom) {
                     this.page++;
                     this.tipDesc = '上滑加载更多...';
                     this.showload = true;
@@ -165,12 +165,13 @@
                                 }
                             }
                             if (res.data.data.length < 20) {
-                                this.algoBottom = true;
+
                                 this.$nextTick(function () {
                                     this.showload = false;
                                     this.tipDesc = '没有更多...';
                                 });
                             }
+                            this.algoBottom = true;
                             this.videoAll.showVideoList = this.videoAll.showVideoList.concat(res.data.data);
                             console.log(this.videoAll.showVideoList);
                         } else {

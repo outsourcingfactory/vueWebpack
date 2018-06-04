@@ -5,14 +5,13 @@
                 <div class="topimage" :style="bgTopImage"></div>
                 <div class="desc">
                     <div class="title">
-                        声控福利社-15秒展示你的声音
+                        把好吃的扔出来！
                     </div>
                     <!--<div class="subTitle">-->
                         <!--@KilaKila有读君 发起-->
                     <!--</div>-->
                     <div class="descContent">
-                        你是loli音,御姐音,正太音,青年音还是大叔音?
-                        不要大意的亮出你的声音,发布视频带#声控福利社#标签,截止到6月5日,点赞前三送KilaKila视频推荐位1天,以及分别可获得200,150,100现金红包!前五十均有现金红包瓜分权!
+                        嘿！看到好吃的就两眼发直的你！赶紧吧好吃的扔出来吧！现在开始，运用拍摄视频时的“暂停”拍摄【美食制作、美食测评、美食推荐】的主题原创视频，并选择标签“把好吃的扔出来！”上传。截止6月7日，点赞前三名将分别获得200、150、50元红包！另外还将评选最美味、最创意作品奖各一位，送出现金100元！
                     </div>
                 </div>
             </div>
@@ -50,9 +49,9 @@
     import Wxcontent from 'components/baseymz/Wxcontent'
     import {ymzBaseFun, na} from 'assets/js/common'
     import Toast from 'assets/js/toast'
-    var shareTitle = '#声控福利社#15秒晒出你的声音!';
-    var shareDesc = '现金奖励+视频推荐位！不要大意的亮出你的声音！';
-    var shareImageUrl = 'https://img.hongrenshuo.com.cn/h5/fiftyvoice-wxshare-ymz.png';
+    var shareTitle = '把好吃的扔出来！';
+    var shareDesc = '发布美食视频，赢现金奖励！';
+    var shareImageUrl = 'https://img.hongrenshuo.com.cn/h5/goodfood-wxshare-ymz.jpg';
     export default {
         data() {
             return {
@@ -60,7 +59,7 @@
                 tab_2_class: '',
                 iActive: false,
                 bgTopImage:{
-                    backgroundImage: "url(" + ("https://img.hongrenshuo.com.cn/h5/fiftyvoice-bgimage-ymz.png?x-oss-process=image/resize,m_mfit,h_211,w_375,limit_0/crop,w_375,h_211,g_center") + ")",
+                    backgroundImage: "url(" + ("https://img.hongrenshuo.com.cn/h5/goodfood-bgimage-ymz.jpg?x-oss-process=image/resize,m_mfit,h_211,w_375,limit_0/crop,w_375,h_211,g_center") + ")",
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "100% 100%",
                 },
@@ -68,8 +67,8 @@
                     exampleVideoList: [],
                     showVideoList: []
                 },
-                exampleVideo: ['1137554571451695155', '1135285273941245962','1137633371216674878'],
-                tagId: 36136,
+                exampleVideo: ['1133874789501370449', '1133871559685963852','1134233792932741178'],
+                tagId: 31220,
                 type: 0,//0 最热 1 最新
                 categoryType: 2,
                 page: 1,
