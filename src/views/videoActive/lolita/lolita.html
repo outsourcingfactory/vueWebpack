@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
+    <title>15秒安利我最喜欢的Lolita服饰</title>
+</head>
+<body>
+<div id="app">
+
+</div>
+<script type="text/javascript" src="https://static.lkme.cc/linkedme.min.js"></script>
+<!-- built files will be auto injected -->
+
+<script>
+    var shareTitle = '15秒安利我最喜欢的Lolita服饰';
+    var shareDesc = '拍摄15秒短视频，展示出对它的喜欢吧~';
+    var shareImageUrl = 'https://img.hongrenshuo.com.cn/h5/lolita-share.jpg';
+    var na = navigator.userAgent.toLowerCase();
+    function h5share() {
+        var shareInfo = new Object();
+        shareInfo.title = shareTitle;
+        shareInfo.des = shareDesc;
+        shareInfo.imgUrl = shareImageUrl;
+        shareInfo.tag1 = '';
+        if (na.match(/(iphone|ipod|ios|ipad)/i)) {
+            return JSON.stringify(shareInfo);
+        } else {
+            window.JsInterface.onReceiveShareContent(JSON.stringify(shareInfo));
+        }
+    }
+</script>
+</body>
+</html>
