@@ -6,7 +6,7 @@
                 <div class="gotoRule" @click="goRule()"></div>
             </div>
             <div class="videoCon" @click="goVideo()">
-                <Onepic :imgSrc="`http://hrslive.hongrenshuo.com.cn/20125834977771527778160870.png?t=1527778216683&x-oss-process=image/resize,m_mfit,h_195,w_350,limit_0/crop,w_350,h_195,g_center`"></Onepic>
+                <Onepic :imgSrc="`https://img.hongrenshuo.com.cn/h5/stardog-videoBg-ymz.jpg`"></Onepic>
                 <div class="showvideo">
                     <Onepic :imgSrc="`https://img.hongrenshuo.com.cn/h5/starcp3-showVideo-ymz.png`"></Onepic>
                 </div>
@@ -198,7 +198,7 @@
                         this.showWx = true;
                     } else {
                         var data = {};
-                        data.stage = 'fiftystory'; // 自定义深度链接阶段，多个用逗号分隔，【可选】
+                        data.stage = 'stardog'; // 自定义深度链接阶段，多个用逗号分隔，【可选】
                         data.ios_custom_url = "https://itunes.apple.com/cn/app/hong-doulive/id1137896285?mt=8"; // 自定义iOS平台下App的下载地址，如果是AppStore的下载地址可以不用填写，【可选】
                         data.ios_direct_open = "true"; //未安装情况下，设置为true为直接打开ios_custom_url，默认为false【可选】
                         data.type = 'test';  //表示现在使用线上模式,如果填写"test", 表示测试模式.【可选】
