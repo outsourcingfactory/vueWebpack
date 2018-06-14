@@ -61,7 +61,7 @@
                 font-weight: 400;
                 text-align: center;
                 line-height: 20px;
-                background: #ff9f9f;
+                background: #936900;
             }
             .zan{
                 position: absolute;
