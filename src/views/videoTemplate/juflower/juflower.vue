@@ -5,14 +5,16 @@
                 <div class="topimage" :style="bgTopImage"></div>
                 <div class="desc">
                     <div class="title">
-                        声控福利社-15秒展示你的声音
+                        菊姐应援舞--这菊稳了 
                     </div>
                     <!--<div class="subTitle">-->
-                        <!--@KilaKila有读君 发起-->
+                        <!--@亚当flop亚当@Anton Zachary 发起-->
                     <!--</div>-->
                     <div class="descContent">
-                        你是loli音,御姐音,正太音,青年音还是大叔音?
-                        不要大意的亮出你的声音,发布视频带#声控福利社#标签,截止到6月5日,点赞前三送KilaKila视频推荐位1天,以及分别可获得200,150,100现金红包!前五十均有现金红包瓜分权!
+                        你来跳，我来跳，菊姐马上就出道。<br>
+                        你应援，我应援，菊姐广告接的全。<br>
+                        开跳指南：点击【我要参加】选择第一首推荐音乐【这菊稳了】进行开拍→拍摄中选择【道具】，使用菊姐应援道具（第一个道具哦）开始拍摄！→拍摄完成后选择标签【菊姐应援舞】上传作品就ok啦！<br>
+                        注意：道具下载过程中请耐心等待完成后再开拍哦～使用自拍模式离自己近一些效果会更好！
                     </div>
                 </div>
             </div>
@@ -50,9 +52,9 @@
     import Wxcontent from 'components/baseymz/Wxcontent'
     import {ymzBaseFun, na} from 'assets/js/common'
     import Toast from 'assets/js/toast'
-    var shareTitle = '#声控福利社#15秒晒出你的声音!';
-    var shareDesc = '现金奖励+视频推荐位！不要大意的亮出你的声音！';
-    var shareImageUrl = 'https://img.hongrenshuo.com.cn/h5/fiftyvoice-wxshare-ymz.png';
+    let shareTitle = '菊姐应援舞也太魔性了8！';
+    let shareDesc = '是哪位小菊豆，还没动起来';
+    let shareImageUrl = 'https://img.hongrenshuo.com.cn/h5/juflower-wxshare-ymz.jpg';
     export default {
         data() {
             return {
@@ -60,7 +62,7 @@
                 tab_2_class: '',
                 iActive: false,
                 bgTopImage:{
-                    backgroundImage: "url(" + ("https://img.hongrenshuo.com.cn/h5/fiftyvoice-bgimage-ymz.png?x-oss-process=image/resize,m_mfit,h_211,w_375,limit_0/crop,w_375,h_211,g_center") + ")",
+                    backgroundImage: "url(" + ("https://img.hongrenshuo.com.cn/h5/juflower-topimage-ymz.jpg?x-oss-process=image/resize,m_mfit,h_211,w_375,limit_0/crop,w_375,h_211,g_center") + ")",
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "100% 100%",
                 },
@@ -68,8 +70,8 @@
                     exampleVideoList: [],
                     showVideoList: []
                 },
-                exampleVideo: ['1137554571451695155', '1135285273941245962','1137633371216674878'],
-                tagId: 36136,
+                exampleVideo: ['1143662345659089027', '1143523820078891047'],
+                tagId: 43001,
                 type: 0,//0 最热 1 最新
                 categoryType: 2,
                 page: 1,
@@ -166,7 +168,6 @@
                                 }
                             }
                             if (res.data.data.length < 20) {
-
                                 this.$nextTick(function () {
                                     this.showload = false;
                                     this.tipDesc = '没有更多...';
@@ -266,7 +267,7 @@
                 width: 100%;
                 height: 100%;
                 color: #FFFFFF;
-                padding: 25px 10px 0;
+                padding: 6px 6px 0;
                 box-sizing: border-box;
                 left: 0;
                 top: 0;
@@ -283,7 +284,7 @@
                     font-size: 14px;
                 }
                 .descContent {
-                    padding-top: 10px;
+                    padding-top: 7px;
                     line-height: 20px;
                     font-size: 14px;
                     text-align: left;
