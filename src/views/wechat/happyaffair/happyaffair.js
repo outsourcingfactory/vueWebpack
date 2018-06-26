@@ -10,6 +10,7 @@ fastclick.attach(document.body)
 import axios from 'assets/js/api'
 Vue.prototype.$axios = axios;
 
+
 import 'babel-polyfill'
 import Es6Promise from 'es6-promise'
 require('es6-promise').polyfill()

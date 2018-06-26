@@ -21,7 +21,7 @@
             </div>
             <div class="top">
                 <div class="headPic">
-                    <Onepic :imgSrc="`${masterInfo.headPortraitUrl}?x-oss-process=image/resize,m_mfit,h_200,w_200,limit_0/crop,w_200,h_200,g_center`"></Onepic>
+                    <Onepic :imgSrc="`${masterInfo.headPortraitUrl?masterInfo.headPortraitUrl:masterInfo.thirdHeadPortraitUrl}?x-oss-process=image/resize,m_mfit,h_200,w_200,limit_0/crop,w_200,h_200,g_center`"></Onepic>
                 </div>
                 <div class="biaoyu">
                     <Onepic :imgSrc="`https://img.hongrenshuo.com.cn/h5/happyaffire-biaoyu-ymz.png`"></Onepic>
@@ -37,7 +37,7 @@
                         <div class="imgOne" v-for="(item,index) in topFive">
                             <div class="imgOut">
                                 <img :src="`${item.headPortraitUrl}?x-oss-process=image/resize,m_mfit,h_100,w_100,limit_0/crop,w_100,h_100,g_center`"
-                                     :class="isbindUid == 0 || isGuest == 1? 'blurImage' : ''">
+                                     :class="isbindUid == 0 || isGuest == 1? 'blurImage' : ''" :onerror="defaultHeadImg">
                                 <div class="seeNumber">
                                     <span style="color: #27292b">{{item.score}}</span> 浏览
                                 </div>
@@ -55,7 +55,7 @@
                     <div class="headlist">
                         <div class="imgOut" v-for="(item,index) in userList">
                             <img :src="`${item.headPortraitUrl}?x-oss-process=image/resize,m_mfit,h_100,w_100,limit_0/crop,w_100,h_100,g_center`"
-                                 alt="">
+                                 alt="" :onerror="defaultHeadImg">
                         </div>
                     </div>
                     <div class="arrow" v-show="allUserList.length > 7" @click="arrowClick()"
@@ -91,7 +91,7 @@
                     <div class="share-left">
                         分享囍事:
                     </div>
-                    <div class="share-right">
+                    <div class="share-right" @click="wechatClick()">
                         <img src="https://img.hongrenshuo.com.cn/h5/happyaffire-towx-ymz.png" alt="">
                         <img src="https://img.hongrenshuo.com.cn/h5/happyaffire-towx1-ymz.png" alt="">
                     </div>
@@ -110,7 +110,7 @@
 <script>
     import Onepic from 'components/baseymz/Onepic'
     import Toast from 'assets/js/toast'
-//    import {Rxports} from 'assets/js/common'
+    //    import {Rxports} from 'assets/js/common'
     import wx from 'weixin-js-sdk';
 
     export default {
@@ -146,8 +146,9 @@
                     '搞毛线啊！'
                 ],
                 shareTitle: '',
-                shareDesc: '',
-                shareImageUrl: 'https://img.hongrenshuo.com.cn/h5/happyaffire-wxshare-ymz.png',
+                shareDesc: '请大家吃喜糖',
+                shareImageUrl: 'https://img.hongrenshuo.com.cn/h5/happyaffire-wxshare-ymz.jpg',
+                defaultHeadImg: 'this.src="' + require('../../../assets/SY-headImg.png') + '"',
             }
         },
         created() {
@@ -215,6 +216,7 @@
                     })
             },
             _confirmUid: function () {
+                _hmt.push(['_trackEvent', '点击解锁', '点击']);
                 this.$axios.HttpGet('/Hotrank/peepingBindUid', {'bindUid': this.bindUid})
                     .then((res) => {
                         console.log(res)
@@ -254,10 +256,12 @@
             },
 //            谈输入框
             seeMan: function () {
+                _hmt.push(['_trackEvent', '点击查看', '点击']);
                 this.showInput = true;
             },
 //            弹引导分享
             showshareClick: function () {
+                _hmt.push(['_trackEvent', '点击分享', '点击']);
                 this.showshare = true;
             },
             modalClick: function () {
@@ -342,6 +346,11 @@
                     });
                 });
             },
+            wechatClick: function () {
+                _hmt.push(['_trackEvent', '点击分享', '点击']);
+                this.showInput = false;
+                this.showshare = true;
+            }
         },
         components: {
             Onepic
@@ -382,7 +391,7 @@
             }
         }
         .iActive {
-            animation: process 20s linear infinite;
+            animation: process 25s linear infinite;
         }
         @keyframes process {
             0% {
@@ -390,7 +399,16 @@
             }
 
             100% {
-                transform: translate3d(-31rem, 0px, 0px);
+                transform: translate3d(-65rem, 0px, 0px);
+            }
+        }
+        @-webkit-keyframes process {
+            0% {
+                transform: translate3d(10rem, 0px, 0px);
+            }
+
+            100% {
+                transform: translate3d(-65rem, 0px, 0px);
             }
         }
         .container {
@@ -400,7 +418,6 @@
             background: #fffafa;
             margin: 0 auto;
             position: relative;
-
             .topleft, .topright, .bottomleft, .bottomright {
                 position: absolute;
                 width: 33.5px;
