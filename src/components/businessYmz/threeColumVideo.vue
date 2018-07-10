@@ -5,10 +5,10 @@
             <div class="example">
                 示例
             </div>
-            <img v-lazy="`${item.videoResp.coverPic}&x-oss-process=image/resize,m_mfit,h_173,w_124,limit_0/crop,w_124,h_173,g_center`">
+            <img v-lazy="`${item.videoResp.coverPic}&x-oss-process=image/resize,m_mfit,h_346,w_248,limit_0/crop,w_248,h_346,g_center`">
         </div>
         <div class="three-image" v-for="item in videoAll.showVideoList" @click="goVideo(item.videoDetailResp.videoResp.idStr)" v-show="!item.example">
-            <img v-lazy="`${item.videoDetailResp.videoResp.coverPic}&x-oss-process=image/resize,m_mfit,h_173,w_124,limit_0/crop,w_124,h_173,g_center`">
+            <img v-lazy="`${item.videoDetailResp.videoResp.coverPic}&x-oss-process=image/resize,m_mfit,h_346,w_248,limit_0/crop,w_248,h_346,g_center`">
             <div class="zan">
                 {{item.likeCount}}点赞
             </div>
