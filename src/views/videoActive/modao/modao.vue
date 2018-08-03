@@ -142,6 +142,7 @@
             _getVideoList: function () {
                 this.$axios.HttpGet('/Tg/gdk',{page:this.page,type:this.type,v:this.v,tagid:this.tagid})
                     .then((res) => {
+//                    console.log(res)
                         if (res.data.code === 200) {
 //                            给示范视频打标记
                             if (this.leftActive) {
@@ -154,7 +155,7 @@
                                 }
                             }
                             this.algoBottom = true;
-                            if (res.data.data.length < 10) {
+                            if (res.data.data.length < 9) {
                                 this.algoBottom = false;
                                 this.$nextTick(function () {
                                     this.showload = false;
