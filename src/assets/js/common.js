@@ -209,6 +209,16 @@ export let ymzBaseFun = {
         if (r != null) return decodeURIComponent(r[2]);
         return null;
     },
+    /**
+     * 没有问号补问号方法
+     */
+    addWen: function (url) {
+        if (url.indexOf("?") != -1) {
+            return url;
+        } else {
+            return url+'?t=1';
+        }
+    }
 }
 
 
