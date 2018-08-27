@@ -16,8 +16,9 @@
 .swiper-container {
 	margin: 0 auto;
 	position: relative;
-	overflow: hidden;
-	z-index: 1
+    overflow: hidden;
+	z-index: 1;
+	padding-bottom: 40px;
 }
 
 .swiper-container-no-flexbox .swiper-slide {
@@ -201,7 +202,7 @@
 .swiper-container-horizontal>.swiper-pagination-bullets,
 .swiper-pagination-custom,
 .swiper-pagination-fraction {
-	bottom: 10px;
+	bottom: -0px;
 	left: 0;
 	width: 100%
 }
