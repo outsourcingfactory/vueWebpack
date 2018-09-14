@@ -220,6 +220,21 @@ export let ymzBaseFun = {
         }
     }
 }
+export function goNovel(novelId,chapterId) {
+    if (na.match(/hongdoulive/i)) {
+        var appIn = "http://live.hongdoulive.com/novel/dialogApp/novelId/" + novelId + "/chapterId/" + chapterId
+        window.location.href = 'uxinlive://noveldetail?url=' + encodeURIComponent(appIn);
+    } else {
+        window.location.href = "http://live.hongdoulive.com/novel/dialog/novelId/" + novelId + "/chapterId/" + chapterId;
+    }
+}
+export function goUser(uid) {
+    if (na.match(/hongdoulive/i)) {
+        window.location.href = 'uxinlive://userinfo?uid=' + uid;
+    } else {
+        window.location.href = 'https://live.hongdoulive.com/index/roomuser/uid/' + uid;
+    }
+}
 
 
 

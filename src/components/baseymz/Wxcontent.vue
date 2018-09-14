@@ -4,7 +4,7 @@
             <img src="https://img.hongrenshuo.com.cn/h5/novel-wxopen-ymz.png" alt="">
         </div>
         <div class="wxTitle">
-            <p>如果您已安装最新版 KilaKila <span class="hd">(原红豆Live)</span></p>
+            <p>如果您已安装最新版 克拉克拉 <span class="hd">KilaKila</span></p>
             <p>点击右上角<span class="dian"></span><span class="dian"></span><span class="dian"></span></p>
             <p>选择在浏览器中打开</p>
         </div>
