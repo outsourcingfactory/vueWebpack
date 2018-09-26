@@ -2,60 +2,44 @@
     <div id="app">
         <div class="container" v-show="!showWx">
             <div class="topImage">
-                <img src="https://img.hongrenshuo.com.cn/h5/wehot-topimage-ymz.png" alt="">
+                <img src="https://img.hongrenshuo.com.cn/h5/daystar-topimage-ymz.png" alt="">
                 <div class="rule" @click="goRule()"></div>
-            </div>
-            <div class="timeTab">
-                <div class="timeTabLi" @click="tabClick(1)">
-                    <div>
-                        <p class="p1">9.16-9.17</p>
-                        <p class="p2">选拔赛</p>
+                <div class="timeTab">
+                    <div class="timeTabLi" @click="tabClick(1)" :class="tabIndex == '1'?'timeTabLiActive':''">
+                        <div>
+                            <p class="p1">9.26</p>
+                            <p class="p2">海选</p>
+                        </div>
                     </div>
-                    <img src="https://img.hongrenshuo.com.cn/h5/wehot-modalbBg-ymz.png" alt="" class="mmm" v-show="tabIndex != '1'">
-                </div>
-                <div class="timeTabLi"  @click="tabClick(2)">
-                    <div>
-                        <p class="p1">9.18</p>
-                        <p class="p2">多人赛</p>
+                    <div class="timeTabLi"  @click="tabClick(2)" :class="tabIndex == '2'?'timeTabLiActive':''">
+                        <div>
+                            <p class="p1">9.27</p>
+                            <p class="p2">初赛</p>
+                        </div>
                     </div>
-                    <img src="https://img.hongrenshuo.com.cn/h5/wehot-modalbBg-ymz.png" alt="" class="mmm" v-show="tabIndex != '2'">
-                </div>
-                <div class="timeTabLi"  @click="tabClick(3)">
-                    <div>
-                        <p class="p1">9.19</p>
-                        <p class="p2">突围赛</p>
+                    <div class="timeTabLi"  @click="tabClick(3)" :class="tabIndex == '3'?'timeTabLiActive':''">
+                        <div>
+                            <p class="p1">9.28</p>
+                            <p class="p2">复赛</p>
+                        </div>
                     </div>
-                    <img src="https://img.hongrenshuo.com.cn/h5/wehot-modalbBg-ymz.png" alt="" class="mmm" v-show="tabIndex != '3'">
-                </div>
-                <div class="timeTabLi"  @click="tabClick(4)">
-                    <div>
-                        <p class="p1">9.20</p>
-                        <p class="p2">争霸赛</p>
+                    <div class="timeTabLi"  @click="tabClick(4)" :class="tabIndex == '4'?'timeTabLiActive':''">
+                        <div>
+                            <p class="p1">9.29</p>
+                            <p class="p2">决赛</p>
+                        </div>
                     </div>
-                    <img src="https://img.hongrenshuo.com.cn/h5/wehot-modalbBg-ymz.png" alt="" class="mmm" v-show="tabIndex != '4'">
                 </div>
-            </div>
-            <div class="famTab" v-show="tabIndex == 1">
-                <div class="famTab1" @click="famClick(1)">
-                    <img :src="`https://img.hongrenshuo.com.cn/h5/wehot-tabA${tab1Index}-ymz.png`" alt="">
-                </div>
-                <div class="famTab2" @click="famClick(2)">
-                    <img :src="`https://img.hongrenshuo.com.cn/h5/wehot-tabB${tab2Index}-ymz.png`" alt="">
-                </div>
-                <div class="famTab3" @click="famClick(3)">
-                    <img :src="`https://img.hongrenshuo.com.cn/h5/wehot-tabC${tab3Index}-ymz.png`" alt="">
+                <div class="famTabUl">
+                    <div class="famTab" @click="famClick(1)" :class="famIndex == '1'?'famTabActive':''">唱见</div>
+                    <div class="famTab" @click="famClick(2)" :class="famIndex == '2'?'famTabActive':''">CV</div>
+                    <div class="famTab" @click="famClick(3)" :class="famIndex == '3'?'famTabActive':''">人气</div>
                 </div>
             </div>
             <div class="content">
-                <div class="line">
-                    <img src="https://img.hongrenshuo.com.cn/h5/wehot-line-ymz.png">
-                </div>
-                <div class="contentLiOut" v-for="(item,index) in list">
-                    <div class="contentLi" @click="goRoom(item.roomId,item.uid)">
-                        <div class="num" v-if="item.sort>3">{{item.sort}}</div>
-                        <div class="num" v-else>
-                            <img :src="`https://img.hongrenshuo.com.cn/h5/wehot-num${item.sort}-ymz.png`" alt="" :class="`num${item.sort}`">
-                        </div>
+                <div class="contentLiOut">
+                    <div class="contentLi" @click="goRoom(item.roomId,item.uid)" v-for="(item,index) in list">
+                        <div class="num">{{index+1}}</div>
                         <div class="headPic">
                             <div class="head">
                                 <img v-lazy="item.headPic">
@@ -70,24 +54,26 @@
                         </div>
                         <div class="goPiao" @click.stop="goPiao(item.uid)" v-show="tabIndex == 1"></div>
                     </div>
-                    <div class="line">
-                        <img src="https://img.hongrenshuo.com.cn/h5/wehot-line-ymz.png">
+
+                    <div v-show="huancun" class="loading-container">
+                        <img src="https://img.hongrenshuo.com.cn/h5/huancun.gif" alt=""
+                             class="huancunGif">
+                    </div>
+                    <div v-show="!huancun && list.length == 0" class="loading-container">
+                        <div>
+                            <img src="https://img.hongrenshuo.com.cn/h5/kstar-empty-ymz.png" alt=""
+                                 class="emptyPng">
+                            <div class="emptyTips">
+                                精彩赛事尚未开始
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tips">
+                        本活动最终解释权归克拉克拉（KilaKila）所有
                     </div>
                 </div>
             </div>
-            <div v-show="huancun" class="loading-container">
-                <img src="https://img.hongrenshuo.com.cn/h5/huancun.gif" alt=""
-                     class="huancunGif">
-            </div>
-            <div v-show="!huancun && list.length == 0" class="loading-container">
-                <div>
-                    <img src="https://img.hongrenshuo.com.cn/h5/kstar-empty-ymz.png" alt=""
-                         class="emptyPng">
-                    <div class="emptyTips">
-                        精彩赛事尚未开始
-                    </div>
-                </div>
-            </div>
+
         </div>
         <Wxcontent v-show="showWx"></Wxcontent>
     </div>
@@ -97,9 +83,9 @@
     import Toast from 'assets/js/toast'
     import {ymzBaseFun, na} from 'assets/js/common'
     import Wxcontent from 'components/baseymz/Wxcontent'
-    let shareTitle = '我们正当红';
-    let shareDesc = '我们正当红';
-    let shareImageUrl = 'https://img.hongrenshuo.com.cn/h5/wehot-goTicket-ymz.png';
+    let shareTitle = '明日之星';
+    let shareDesc = '支持你的明日之星';
+    let shareImageUrl = 'https://img.hongrenshuo.com.cn/h5/daystar-wxshare-ymz.jpg';
     export default {
         data() {
             return {
@@ -108,25 +94,22 @@
                 huancun: true,
                 tabIndex:1,
                 famIndex:1,
-                tab1Index:1,
-                tab2Index:2,
-                tab3Index:2
             }
         },
         created() {
             //          根据时间判断tab
-            let time1 = 1537200000; //9月18日0点
-            let time2 = 1537286400; //9月19日0点
-            let time3 = 1537372800; //9月20日0点
+            let time1 = 1537891200; //9月26日0点
+            let time2 = 1537977600; //9月27日0点
+            let time3 = 1538064000; //9月28日0点
+            let time4 = 1538150400; //9月29日0点
             let nowTime = Date.parse(new Date())/1000;
-            console.log(nowTime)
-            if(nowTime<time1){
+            if(nowTime<time2){
                 this.tabIndex = 1;
-            }else if(nowTime>time1 && nowTime<=time2){
-                this.tabIndex = 2;
             }else if(nowTime>time2 && nowTime<=time3){
+                this.tabIndex = 2;
+            }else if(nowTime>time3 && nowTime<=time4){
                 this.tabIndex = 3;
-            }else if(nowTime>time3){
+            }else if(nowTime>time4){
                 this.tabIndex = 4;
             }
             this.getDataList();
@@ -139,19 +122,6 @@
                     return
                 }
                 this.famIndex = index;
-                if(index == 1){
-                    this.tab1Index = 1;
-                    this.tab2Index = 2;
-                    this.tab3Index = 2;
-                }else if(index == 2){
-                    this.tab1Index = 2;
-                    this.tab2Index = 1;
-                    this.tab3Index = 2;
-                }else if(index == 3){
-                    this.tab1Index = 2;
-                    this.tab2Index = 2;
-                    this.tab3Index = 1;
-                }
                 this.getDataList();
             },
             tabClick(index){
@@ -159,15 +129,16 @@
                     return
                 }
                 this.tabIndex = index;
+                this.famIndex = 1;
                 this.getDataList();
             },
             goRule(){
-                window.location.href = '/Rule/wehotrule?showshare=1';
+                window.location.href = '/Viewsh5rule/daystarrule?showshare=1';
             },
             getDataList() {
                 this.huancun = true;
                 this.list = [];
-                this.$axios.HttpGet('/UnionActive/weAreRedList', {
+                this.$axios.HttpGet('/UnionActive/risingStarList', {
                     period:this.tabIndex,
                     group:this.famIndex
                 })
@@ -209,7 +180,7 @@
             },
             goPiao(uid) {
                 if (na.match(/hongdoulive/i)) {
-                    this.$axios.HttpGet('/UnionActive/weAreRedVote', {
+                    this.$axios.HttpGet('/UnionActive/risingStarVote', {
                         voteUid:uid,
                         group:this.famIndex,
                     })
@@ -217,6 +188,11 @@
                             console.log(res.data)
                             if(res.data.code == 200) {
                                 if(res.data.data.code == 200){
+                                    Toast({
+                                        message: res.data.data.msg,
+                                        position: 'center',
+                                        duration: 1500
+                                    })
                                     this.getDataList();
                                 }else{
                                     Toast({
@@ -277,7 +253,7 @@
 
 <style lang="scss" scoped>
     #app {
-        background: #cfd5ff;
+        background: #fddeec;
         position: relative;
         padding-bottom: 30px;
         img {
@@ -286,156 +262,161 @@
         }
         .topImage {
             width: 100%;
-            height: 494px;
+            height: 380px;
             position: relative;
             .rule{
                 position: absolute;
-                width: 100px;
+                width: 70px;
                 height: 70px;
-                right: 8px;
-                bottom: 258px;
+                right: 28px;
+                bottom: 82px;
             }
-        }
-        .timeTab{
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            padding: 0 10px 0 10px;
-            box-sizing: border-box;
-            margin-bottom: 25px;
-            .timeTabLi{
-                width: 82px;
-                height: 60px;
-                background: url("https://img.hongrenshuo.com.cn/h5/wehot-timeTabBg-ymz.png") no-repeat center;
-                background-size: 100%;
+            .timeTab{
+                position: absolute;
+                left: 50%;
+                transform:translateX(-50%);
+                bottom: 46px;
                 display: flex;
                 align-items: center;
-                justify-content: center;
-                position: relative;
-                .p1{
+                justify-content: space-around;
+                box-sizing: border-box;
+                font-weight: 400;
+                .timeTabLi{
+                    width: 80px;
+                    height: 36px;
+                    background: url("https://img.hongrenshuo.com.cn/h5/daystar-tabnormal-ymz.png") no-repeat center;
+                    background-size: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: relative;
                     color: #fff;
                     text-align: center;
                     font-size: 12px;
+                    margin-left: 7px;
+                    .p2{
+                        padding-top: 4px;
+                        font-size: 13px;
+                    }
+                    &:nth-child(1){
+                        margin-left: 0;
+                    }
                 }
-                .p2{
-                    color: #a8b0f9;
-                    text-align: center;
-                    padding-top: 4px;
+                .timeTabLiActive{
+                    background: url("https://img.hongrenshuo.com.cn/h5/daystar-tabActive-ymz.png") no-repeat center;
+                    background-size: 100%;
+                }
+            }
+            .famTabUl{
+                position: absolute;
+                left: 50%;
+                transform:translateX(-50%);
+                bottom:5px;
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                .famTab{
+                    width: 80px;
+                    height: 33px;
+                    background: url("https://img.hongrenshuo.com.cn/h5/daystar-zunormoal-ymz.png") no-repeat center;
+                    background-size: 100%;
+                    color: #737373;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding-top: 10px;
+                    box-sizing: border-box;
                     font-size: 13px;
+                    font-weight: 400;
+                    margin-left: 10px;
+                    &:nth-child(1){
+                        margin-left: 0;
+                    }
                 }
-                .mmm{
-                    position: absolute;
-                    left: 4px;
-                    top:4px;
-                    width: 74px;
-                    height: 52px;
+                .famTabActive{
+                    background: url("https://img.hongrenshuo.com.cn/h5/daystar-zuActive-ymz.png") no-repeat center;
+                    background-size: 100%;
+                    color: #ff8fb4;
                 }
-            }
-        }
-        .famTab{
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            .famTab1{
-                width: 82px;
-                height: 35px;
-            }
-            .famTab2{
-                width: 69px;
-                height: 38px;
-            }
-            .famTab3{
-                width: 131px;
-                height: 36px;
             }
         }
         .content {
-            padding: 0 10px 0 10px;
+            padding: 0 10px;
             box-sizing: border-box;
-            .contentLi {
-                width: 100%;
-                display: flex;
-                align-items: center;
-                color: #1d2524;
-                .num {
-                    width: 40px;
-                    font-size: 25px;
-                    font-weight: 400;
+            .contentLiOut{
+                box-sizing: border-box;
+                border: 2px dotted #ffffff;
+                padding: 4px 10px 0;
+                .tips{
                     text-align: center;
-                    color: #fff;
-                    .num1{
-                        width: 28px;
-                        height: 44px;
-                        margin: 0 auto;
-                    }
-                    .num2{
-                        width: 30px;
-                        height: 44px;
-                        margin: 0 auto;
-                    }
-                    .num3{
-                        width: 30px;
-                        height: 45px;
-                        margin: 0 auto;
-                    }
+                    font-size: 12px;
+                    color: #ff8fb4;
+                    line-height: 24px;
                 }
-                .headPic {
-                    .head {
-                        width: 87px;
-                        height: 87px;
-                        margin: 0 auto;
-                        background: url("https://img.hongrenshuo.com.cn/h5/wehot-headBg-ymz.png") no-repeat center;
-                        background-size: 100% 100%;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        img {
-                            width: 66px;
-                            height: 66px;
-                            border-radius: 50%;
-                        }
-                    }
-                }
-                .goPiao {
-                    width: 59px;
-                    height: 34px;
-                    margin: 0 auto;
-                    background: url("https://img.hongrenshuo.com.cn/h5/wehot-goTicket-ymz.png") no-repeat center;
-                    background-size: 100% 100%;
-                }
-                .desc {
-                    box-sizing: border-box;
-                    width: 0;
-                    flex: 1;
-                    height: 100%;
+                .contentLi {
+                    width: 100%;
+                    height: 74px;
+                    background: url("https://img.hongrenshuo.com.cn/h5/daystar-contentLi-ymz.png") no-repeat center;
+                    background-size: 100%;
                     display: flex;
                     align-items: center;
-                    .descIn {
-                        width: 100%;
+                    margin-top: 4px;
+                    .num {
+                        width: 40px;
+                        font-size: 25px;
+                        font-weight: 400;
+                        text-align: center;
                         color: #fff;
-                        .nickName {
-                            font-size: 18px;
-                            width: 100%;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                            white-space: nowrap;
+                    }
+                    .headPic {
+                        .head {
+                            width: 50px;
+                            height: 50px;
+                            img {
+                                width: 100%;
+                                height: 100%;
+                                border-radius: 50%;
+                            }
                         }
-                        .piaoNum {
-                            font-size: 14px;
-                            padding-top: 10px;
+                    }
+                    .goPiao {
+                        width: 83px;
+                        height: 27px;
+                        background: url("https://img.hongrenshuo.com.cn/h5/daystar-gopiao-ymz.png") no-repeat center;
+                        background-size: 100% 100%;
+                        margin-right: 10px;
+                    }
+                    .desc {
+                        box-sizing: border-box;
+                        width: 0;
+                        flex: 1;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        padding-left: 10px;
+                        .descIn {
                             width: 100%;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                            white-space: nowrap;
+                            color: #fff;
+                            .nickName {
+                                font-size: 13px;
+                                width: 100%;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                white-space: nowrap;
+                            }
+                            .piaoNum {
+                                font-size: 12px;
+                                padding-top: 10px;
+                                width: 100%;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                white-space: nowrap;
+                            }
                         }
                     }
                 }
             }
-            .line {
-                width: 100%;
-                height: 10px;
-            }
+
         }
         .loading-container {
             width: 100%;
