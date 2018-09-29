@@ -7,25 +7,25 @@
                 <div class="timeTab">
                     <div class="timeTabLi" @click="tabClick(1)" :class="tabIndex == '1'?'timeTabLiActive':''">
                         <div>
-                            <p class="p1">9.26</p>
+                            <p class="p1">9.27</p>
                             <p class="p2">海选</p>
                         </div>
                     </div>
                     <div class="timeTabLi"  @click="tabClick(2)" :class="tabIndex == '2'?'timeTabLiActive':''">
                         <div>
-                            <p class="p1">9.27</p>
+                            <p class="p1">9.28</p>
                             <p class="p2">初赛</p>
                         </div>
                     </div>
                     <div class="timeTabLi"  @click="tabClick(3)" :class="tabIndex == '3'?'timeTabLiActive':''">
                         <div>
-                            <p class="p1">9.28</p>
+                            <p class="p1">9.29</p>
                             <p class="p2">复赛</p>
                         </div>
                     </div>
                     <div class="timeTabLi"  @click="tabClick(4)" :class="tabIndex == '4'?'timeTabLiActive':''">
                         <div>
-                            <p class="p1">9.29</p>
+                            <p class="p1">9.30</p>
                             <p class="p2">决赛</p>
                         </div>
                     </div>
@@ -102,14 +102,15 @@
             let time2 = 1537977600; //9月27日0点
             let time3 = 1538064000; //9月28日0点
             let time4 = 1538150400; //9月29日0点
+            let time5 = 1538236800; //9月30日0点
             let nowTime = Date.parse(new Date())/1000;
-            if(nowTime<time2){
+            if(nowTime<time3){
                 this.tabIndex = 1;
-            }else if(nowTime>time2 && nowTime<=time3){
-                this.tabIndex = 2;
             }else if(nowTime>time3 && nowTime<=time4){
+                this.tabIndex = 2;
+            }else if(nowTime>time4 && nowTime<=time5){
                 this.tabIndex = 3;
-            }else if(nowTime>time4){
+            }else if(nowTime>time5){
                 this.tabIndex = 4;
             }
             this.getDataList();
