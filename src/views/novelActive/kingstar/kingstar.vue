@@ -115,7 +115,7 @@
 
             },
             goRule() {
-                window.location.href = '/Rule/beawomanrule?showshare=1';
+                window.location.href = '/Rule/kingstarrule?showshare=1';
             },
             _goNovel(novelId, chapterId) {
                 if (chapterId) {
