@@ -36,6 +36,8 @@
                 if(val == false){
                     this.getMa();
                     this.input1 = '';
+                }else{
+                    this.getMa();
                 }
             },
         },
@@ -46,12 +48,13 @@
             }
         },
         created(){
-            this.getMa();
+//            this.getMa();
         },
         mounted(){
 
         },
         methods:{
+
 //            切换二维码
             getMa(){
                 let verifyURL = "/Authcode/getCode";
