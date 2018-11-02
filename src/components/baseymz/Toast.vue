@@ -30,6 +30,7 @@
         text-align: center;
         z-index:9999;
         font-size:16px;
+        line-height: 22px;
         max-width:80%;
         color: #fff;
         border-radius: 6px;
