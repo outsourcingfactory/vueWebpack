@@ -90,7 +90,7 @@
                 }
                 this.time = 60;
                 this.timer();
-                this.$axios.HttpGet('/Vote/twoYearSendCode', {
+                this.$axios.HttpGet('/Vote/thunderSendCode', {
                     phone:phoneNum
                 })
                     .then((res) => {
