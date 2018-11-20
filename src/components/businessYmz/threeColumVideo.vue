@@ -3,7 +3,7 @@
     <div class="threeColumVideo">
         <div class="three-image" v-for="item in videoAll.exampleVideoList" @click="goVideo(item.videoResp.idStr)">
             <div class="example">
-                示例
+                推荐
             </div>
             <img v-lazy="`${item.videoResp.coverPic}&x-oss-process=image/resize,m_mfit,h_346,w_248,limit_0/crop,w_248,h_346,g_center`">
         </div>

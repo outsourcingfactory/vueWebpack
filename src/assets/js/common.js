@@ -235,6 +235,13 @@ export function goUser(uid) {
         window.location.href = 'https://live.hongdoulive.com/index/roomuser/uid/' + uid;
     }
 }
+export function goVideo(videoid) {
+    if (na.match(/hongdoulive/i)) {
+        window.location.href = 'uxinlive://smallvideo?video_id='+videoid;
+    } else {
+        window.location.href = 'https://v.hongdoulive.com/v/video?videoId='+videoid;
+    }
+}
 
 
 

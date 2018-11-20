@@ -8,7 +8,7 @@
                     <div @click="goVideo('1202912467479429145')"></div>
                     <div @click="goVideo('1202912248436097070')"></div>
                 </div>
-                <div class="gopush" @click="goDeepLink('uxinlive://selectmaterial')"></div>
+                <div class="gopush" @click="goDeepLink(' uxinlive://piamateriallist?topic_id=1202970569797009509')"></div>
             </div>
             <div class="switch-content">
                 <div class="switch-btn-content">

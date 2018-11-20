@@ -12,8 +12,6 @@ var glob = require('glob');
 //     'views/ymz/test': './src/views/ymz/test/test.js'
 // }
 var entries = config.build.productionEntries
-// console.log(111111)
-// console.log(entries)
 // var chunks = Object.keys(entries);
 // console.log(chunks)
 var projectRoot = path.resolve(__dirname, '../')
