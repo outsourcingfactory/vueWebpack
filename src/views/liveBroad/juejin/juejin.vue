@@ -1,82 +1,85 @@
 <template>
     <div id="app">
-        <div v-show="!showWx" class="appin" :class="tips?'appin-bottom':''">
+        <div v-show="!showWx" class="appin">
             <div class="topimageOut">
                 <Onepic :imgSrc="`https://img.hongrenshuo.com.cn/h5/juejin-topimage-ymz.png`"></Onepic>
             </div>
             <div class="xunbao">
-                <Onepic :imgSrc="`https://img.hongrenshuo.com.cn/h5/juejin-xunbao-ymz.png`"></Onepic>
-                <img src="https://img.hongrenshuo.com.cn/h5/juejin-box1-ymz.png" alt="" class="box box1">
-                <img src="https://img.hongrenshuo.com.cn/h5/juejin-box1-ymz.png" alt="" class="box box2">
-                <img src="https://img.hongrenshuo.com.cn/h5/juejin-box1-ymz.png" alt="" class="box box3">
-                <img src="https://img.hongrenshuo.com.cn/h5/juejin-box1-ymz.png" alt="" class="box box4">
-                <img src="https://img.hongrenshuo.com.cn/h5/juejin-bigbox1-ymz.png" alt="" class="box box5">
-                <div class="backbag">
+                <div @click="clickBaohe(item.status,index)" class="box"  v-for="(item,index) in data.boxList" :class="`box${index+1}`">
+                    <img :src="index != 4?`https://img.hongrenshuo.com.cn/h5/juejin-box${computedStatus(item.status)}-ymz.png`:`https://img.hongrenshuo.com.cn/h5/juejin-bigbox${computedStatus(item.status)}-ymz.png`" alt="">
+                </div>
+                <div class="backbag" @click="showBagFun">
                     <img src="https://img.hongrenshuo.com.cn/h5/juejin-backbag-ymz.png" alt="">
                 </div>
+                <div class="gorule" @click="showRuleFun"></div>
             </div>
             <div class="bdTitleWrapper">
                 <Onepic :imgSrc="`https://img.hongrenshuo.com.cn/h5/juejin-bdtitle-ymz.png`"></Onepic>
             </div>
             <div class="listTitle">
                 <div class="title">
-                    <div class="titleLi activeLi">
-                        11.24
-                    </div>
-                    <div class="titleLi">
-                        11.24
-                    </div>
-                    <div class="titleLi">
-                        11.24
-                    </div>
-                    <div class="titleLi">
-                        11.24
-                    </div>
-                    <div class="titleLi">
-                        11.24
-                    </div>
-                    <div class="titleLi">
-                        11.24
+                    <div class="titleLi" v-for="(item,index) in data.showDate" :class="highType == index?'activeLi':''" @click="checkTab(item.period,index)">
+                        {{item.date}}
                     </div>
                 </div>
-                <div class="tou tou1">
-                    <img src="" alt="">
+                <div class="tou" v-for="(item,index) in data.top" :class="`tou${index+1}`" v-show="!huancun" @click="goUserFun(item.uid)">
+                        <img :src="item.headPic" alt="" class="headmm">
+                        <img :src="`https://img.hongrenshuo.com.cn/h5/juejin-tou${index+1}bottom-ymz.png`" alt="" :class="`headBottom${index+1}`">
                 </div>
-                <div class="tou tou2">
-                    <img src="" alt="">
+                <div class="loading-container" v-show="huancun">
+                    <img src="https://img.hongrenshuo.com.cn/h5/huancun.gif" alt=""
+                         class="huancunGif">
                 </div>
             </div>
             <div class="contentUl">
-                <div class="contentLi">
-                    <div class="num">1</div>
-                    <img src="" alt="" class="headPic">
+                <div class="contentLi" v-for="(item,index) in data.list" @click="goRoom(item.roomId,item.uid)">
+                    <div class="num">{{index+1}}</div>
+                    <img :src="item.headPic" alt="" class="headPic" @click.stop="goUserFun(item.uid)">
                     <div class="desc">
-                        <div class="nickName">昵称昵称昵称</div>
-                        <div class="descTip">简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介</div>
-                        <div class="scroe">红豆数：2000</div>
-                    </div>
-                </div>
-                <div class="contentLi">
-                    <div class="num">1</div>
-                    <img src="" alt="" class="headPic">
-                    <div class="desc">
-                        <div class="nickName">昵称昵称昵称</div>
-                        <div class="descTip">简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介</div>
-                        <div class="scroe">红豆数：2000</div>
-                    </div>
-                </div>
-                <div class="contentLi">
-                    <div class="num">1</div>
-                    <img src="" alt="" class="headPic">
-                    <div class="desc">
-                        <div class="nickName">昵称昵称昵称</div>
-                        <div class="descTip">简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介</div>
-                        <div class="scroe">红豆数：2000</div>
+                        <div class="nickName">{{item.nickname}}</div>
+                        <div class="descTip">{{item.introduction || '暂无简介'}}</div>
+                        <div class="scroe">红豆数：{{item.score}}</div>
                     </div>
                 </div>
             </div>
             <div class="tagtips">
                 本活动最终解释权利归克拉克拉所有
+            </div>
+            <div class="bottom-tips" v-html="data.copywriter" v-if="data.copywriter"></div>
+            <div class="modal" v-show="showBag" @click="hideBag">
+                <div class="modal-bag">
+                    <div class="mmkk">
+                        <div class="giftLi" v-for="(item,index) in data.bag">
+                            <div class="left">
+                                <div class="num">{{index+1}}</div>
+                                <div class="name">{{item.giftName}}</div>
+                            </div>
+                            <div class="right">X<span>{{item.giftNum}}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal" v-show="showRule" @click="hideRule">
+                <div class="modal-rule">
+                    <img src="https://img.hongrenshuo.com.cn/h5/juejin-ruleToast-ymz.png" alt="">
+                </div>
+            </div>
+            <div class="modal" v-show="showGiftModal">
+                <div class="box">
+                    <div class="openBox">
+                        <div class="giftOut" v-for="(item,index) in giftFun[chooseIndex].gift">
+                            <img :src="item.img" alt="">
+                            <div class="numgift">x<span>{{item.num}}</span></div>
+                        </div>
+                    </div>
+                    <div class="desc">
+                        <p class="p1">恭喜你获得</p>
+                        <p class="p2">{{giftFun[chooseIndex].name}}</p>
+                    </div>
+                    <div class="close" @click="closeGiftModal">
+                        <img src="https://img.hongrenshuo.com.cn/h5/juejin-close-ymz.png" alt="">
+                    </div>
+                </div>
             </div>
         </div>
         <Wxcontent v-show="showWx"></Wxcontent>
@@ -85,23 +88,88 @@
 
 <script>
     import Onepic from 'components/baseymz/Onepic'
-    import {ymzBaseFun, na} from 'assets/js/common'
+    import {ymzBaseFun, na,goUser} from 'assets/js/common'
     import Wxcontent from 'components/baseymz/Wxcontent'
     import Toast from 'assets/js/toast'
-    let shareTitle = '克拉克拉过关斩将';
-    let shareDesc = '秋风起，战鼓响，参加过关斩将活动海量经验送不停~';
-    let shareImageUrl = 'https://img.hongrenshuo.com.cn/h5/killguan-wxshare-ymz.jpg';
+    let shareTitle = '克拉克拉掘金者';
+    let shareDesc = '海量宝箱散落城中 谁是“最强探宝者”';
+    let shareImageUrl = 'https://img.hongrenshuo.com.cn/h5/juejin-wxshare-ymz.jpg';
     export default {
         data() {
             return {
                 type: 1,
                 leftTitle: '',
-                tips: '',
                 isActive: false,
                 dataList: [],
                 huancun: true,
                 showWx: false,
-                moneyTitle:'第一名：200000   第二名：1300000   第三名：700000'
+                data:{},
+                boxList:[],
+                showBag:false,
+                showRule:false,
+                showGiftModal:false,
+                period:-1,
+                highType:-1,
+                giftFun:[
+                    {
+                        'gift':[
+                            {
+                                'img':'https://img.hongrenshuo.com.cn/h5/juejin-gift1-ymz.png',
+                                'num':1
+                            }
+                        ],
+                        'name':'天空之城*1'
+                    },
+                    {
+                        'gift':[
+                            {
+                                'img':'https://img.hongrenshuo.com.cn/h5/juejin-gift2-ymz.png',
+                                'num':1
+                            }
+                        ],
+                        'name':'告白气球*1'
+                    },
+                    {
+                        'gift':[
+                            {
+                                'img':'https://img.hongrenshuo.com.cn/h5/juejin-gift1-ymz.png',
+                                'num':1
+                            },
+                            {
+                                'img':'https://img.hongrenshuo.com.cn/h5/juejin-gift2-ymz.png',
+                                'num':2
+                            }
+                        ],
+                        'name':'天空之城*1+告白气球*1'
+                    },
+                    {
+                        'gift':[
+                            {
+                                'img':'https://img.hongrenshuo.com.cn/h5/juejin-gift3-ymz.png',
+                                'num':2
+                            },
+                            {
+                                'img':'https://img.hongrenshuo.com.cn/h5/juejin-gift1-ymz.png',
+                                'num':2
+                            }
+                        ],
+                        'name':'桃之夭夭*2+天空之城*2'
+                    },
+                    {
+                        'gift':[
+                            {
+                                'img':'https://img.hongrenshuo.com.cn/h5/juejin-gift4-ymz.png',
+                                'num':2
+                            },
+                            {
+                                'img':'https://img.hongrenshuo.com.cn/h5/juejin-gift1-ymz.png',
+                                'num':2
+                            }
+                        ],
+                        'name':'月华灼灼*2+天空之城*2'
+                    }
+                ],
+                chooseIndex:1
             }
         },
         created() {
@@ -109,12 +177,117 @@
             ymzBaseFun.wxShareVue(shareTitle, shareDesc, shareImageUrl);
         },
         mounted() {
-            this.getNowType();
-            this.$nextTick(function () {
-                window.addEventListener('scroll', this.handleScroll)
-            });
+            this.getData(false);
         },
         methods: {
+            goRoom: function (roomid, uid) {
+                if (roomid) {
+                    if (na.match(/hongdoulive/i)) {
+                        window.location.href = 'uxinlive://live?roomid=' + roomid + '&roomId=' + roomid;
+                    } else {
+                        window.location.href = 'http://m.hongdoufm.com/room/' + roomid;
+                    }
+                } else {
+                    if (na.match(/hongdoulive/i)) {
+                        window.location.href = 'uxinlive://userinfo?uid=' + uid;
+                    } else {
+                        window.location.href = 'https://live.hongdoulive.com/index/roomuser/uid/' + uid;
+                    }
+                }
+            },
+            goUserFun:function (uid) {
+                return goUser(uid)
+            },
+            hideBag:function () {
+                this.showBag = false;
+            },
+            hideRule:function () {
+                this.showRule = false;
+            },
+            showRuleFun:function () {
+                this.showRule = true;
+            },
+            showBagFun:function () {
+                if(this.data.bag.length == 0){
+                    Toast({
+                        message: '背包暂无礼物',
+                        position: 'center',
+                        duration: 1500
+                    })
+                    return
+                }
+                this.showBag = true;
+            },
+            closeGiftModal:function () {
+                this.showGiftModal = false;
+            },
+            checkTab:function (period,index) {
+                this.period = period;
+                this.highType = index;
+                this.getData(true);
+            },
+            computedStatus(type) {
+                if (type == 2) {
+                    return '2'
+                } else if (type == 3) {
+                    return '3'
+                } else {
+                    return '1'
+                }
+            },
+            clickBaohe(status, index) {
+                if (na.match(/hongdoulive/i)) {
+                    if (status == 1) {
+                        Toast({
+                            message: '完成当前任务才可以开启宝箱哦',
+                            position: 'center',
+                            duration: 1500
+                        })
+                    } else if (status == 3) {
+                        Toast({
+                            message: '该宝箱已经开过了哦',
+                            position: 'center',
+                            duration: 1500
+                        })
+                    } else {
+                        this.$axios.HttpGet('/Active/nuggetsOpenBox', {period: this.period,boxKey:index})
+                            .then((res) => {
+                                console.log(res.data.data);
+                                if (res.data.code === 200) {
+                                    //打开宝箱
+                                    if(res.data.data.code == 200){
+                                        this.chooseIndex = index;
+//                                        console.log(this.giftFun[this.chooseIndex])
+                                        this.showGiftModal = true;
+                                        this.getData();
+//                                        this.data.boxList[index].status = 3;
+                                    }else{
+                                        Toast({
+                                            message: res.data.data.msg,
+                                            position: 'center',
+                                            duration: 1500
+                                        })
+                                    }
+                                } else {
+                                    Toast({
+                                        message: res.data.msg,
+                                        position: 'center',
+                                        duration: 1500
+                                    })
+                                }
+                            })
+                            .catch(() => {
+                                Toast({
+                                    message: "网络错误",
+                                    position: 'center',
+                                    duration: 1500
+                                })
+                            })
+                    }
+                } else {
+                    this.goDeepLink("uxinlive://webpage?url=https%3A%2F%2Flive.hongdoulive.com%2FActive%2FnuggetsIndex%3Fshowshare%3D1");
+                }
+            },
             goDeepLink: function (url) {
                 if (na.match(/hongdoulive/i)) {
                     window.location.href = url;
@@ -139,38 +312,25 @@
                     }
                 }
             },
-            goBottom: function () {
-                if (this.$refs.tips.innerText == '我要去支持我喜欢的豆咖') {
-                    this.goDeepLink("uxinlive://webpage?url=https%3A%2F%2Flive.hongdoulive.com%2FUnionActive%2FguoguanIndex%3Fshowshare%3D1");
-                }
-            },
-            goUrl: function (type) {
-                if (type == 1) {
-                    window.location.href = '/Rule/killmanrule?showshare=1';
-                } else if (type == 2) {
-                    window.location.href = '/Rule/killmanjl?showshare=1';
-                } else {
-                    this.goDeepLink('uxinlive://tagintegrate?tag_id=113689&tag_name=克拉克拉过关斩将&category_type=1&hot_new=0');
-                }
-            },
-            getRoomList: function () {
-                this.dataList = [];
+            getData(tab) {
                 this.huancun = true;
-                this.tips = '';
-                this.$axios.HttpGet('/unionActive/guoguanList', {
-                    period: this.type
+                this.data = {};
+                this.$axios.HttpGet('/Active/nuggetsList',{
+                    period:this.period
                 })
                     .then((res) => {
-                        console.log(res.data)
+                        console.log(res.data.data)
+                        this.huancun = false;
                         if (res.data.code === 200) {
-                            this.dataList = res.data.data.list;
-                            this.huancun = false;
-                            if (na.match(/hongdoulive/i)) {
-                                if (res.data.data.rankInfo) {
-                                    this.tips = res.data.data.rankInfo;
+                            this.data = res.data.data;
+                            if(tab){
+                                return
+                            }
+                            for(var i=0;i<this.data.showDate.length;i++){
+                                if(this.data.showDate[i].isHigh == true){
+                                    this.highType = i;
+                                    this.period = this.data.showDate[i].period;
                                 }
-                            } else {
-                                this.tips = '我要去支持我喜欢的豆咖';
                             }
                         } else {
                             Toast({
@@ -182,131 +342,16 @@
                     })
                     .catch(() => {
                         Toast({
-                            message: '网络错误',
+                            message: "网络错误",
                             position: 'center',
                             duration: 1500
                         })
                     })
-            },
-            goRoom: function (roomid, uid) {
-                if (roomid) {
-                    if (na.match(/hongdoulive/i)) {
-                        window.location.href = 'uxinlive://live?roomid=' + roomid + '&roomId=' + roomid;
-                    } else {
-                        window.location.href = 'http://m.hongdoufm.com/room/' + roomid;
-                    }
-                } else {
-                    if (na.match(/hongdoulive/i)) {
-                        window.location.href = 'uxinlive://userinfo?uid=' + uid;
-                    } else {
-                        window.location.href = 'https://live.hongdoulive.com/index/roomuser/uid/' + uid;
-                    }
-                }
-            },
-            checkTab: function (index) {
-                if (this.huancun) {
-                    return
-                }
-                this.moneyTitle = '';
-                if (index == this.type) {
-                    return
-                } else {
-                    this.type = index
-                }
-                this.tabDataChange(this.type);
-                this.getRoomList();
-            },
-            tabDataChange(type) {
-                if (type == 1) {
-                    this.leftTitle = '角逐32强';
-                    this.moneyTitle = '第一名：200000   第二名：130000   第三名：70000'
-                } else if (type == 2) {
-                    this.leftTitle = '32进16';
-                    this.moneyTitle = '第一名：300000   第二名：200000   第三名：100000'
-                } else if (type == 3) {
-                    this.leftTitle = '16进8';
-                    this.moneyTitle = '第一名：500000   第二名：300000   第三名：200000'
-                } else if (type == 4) {
-                    this.leftTitle = '8进2';
-                    this.moneyTitle = '第一名：200000   第二名：100000'
-                } else if (type == 5) {
-                    this.leftTitle = '10进6';
-                    this.moneyTitle = '第一名：700000   第二名：500000   第三名：300000'
-                } else if (type == 6) {
-                    this.leftTitle = '6进3';
-                    this.moneyTitle = '第一名：2000000   第二名：1000000   第三名：500000'
-                }
-            },
-            getNowType: function () {
-                let nowTime = Date.parse(new Date()) / 1000;
-                let time1 = 1537632000; //9月23号0点
-                let time2 = 1537718400; //9月24号0点
-                let time3 = 1537804800; //9月25号0点
-                let time4 = 1537891200; //9月26号0点
-                let time5 = 1537977600; //9月27号0点
-                let time6 = 1538064000; //9月28号0点
-                let time7 = 1538150400; //9月29号0点
-                if (nowTime < time2) { //海选
-                    this.type = 1;
-                } else if (nowTime <= time4 && nowTime > time3) { //初赛
-                    this.type = 2;
-                } else if (nowTime <= time5 && nowTime > time4) { //复赛
-                    this.type = 3;
-                    this.$nextTick(() => {
-                        this.$refs.sliderGroup.scrollLeft = 400;
-                    })
-                } else if (nowTime <= time6 && nowTime > time5) {  //踢馆赛
-                    this.type = 4;
-                    this.$nextTick(() => {
-                        this.$refs.sliderGroup.scrollLeft = 400;
-                    })
-                } else if (nowTime <= time7 && nowTime > time6) {  //半决赛
-                    this.type = 5;
-                    this.$nextTick(() => {
-                        this.$refs.sliderGroup.scrollLeft = 400;
-                    })
-                } else if (nowTime > time7){ //决赛
-                    this.type = 6;
-                    this.$nextTick(() => {
-                        this.$refs.sliderGroup.scrollLeft = 400;
-                    })
-                }
-                this.tabDataChange(this.type);
-//                获取数据
-                this.getRoomList();
-            },
-            handleScroll: function () {
-                this.scrollTop = this.scrollTop = window.pageYOffset || document.body.scrollTop
-                if (this.scrollTop > 400) {
-                    this.isActive = true
-                } else {
-                    this.isActive = false
-                }
-            },
-            scrollToTop() {
-                let timer = null;
-                let _that = this;
-                //动画，使用requestAnimationFrame代替setInterval
-                cancelAnimationFrame(timer)
-                timer = requestAnimationFrame(function fn() {
-                    if (_that.scrollTop > 0) {
-                        _that.scrollTop -= 50
-                        //然后修改这里实现动画滚动效果
-                        document.body.scrollTop = document.documentElement.scrollTop = _that.scrollTop
-                        timer = requestAnimationFrame(fn)
-                    } else {
-                        cancelAnimationFrame(timer);
-                        _that.toTopShow = false
-                    }
-                })
             }
         },
         components: {
             Onepic,
             Wxcontent
-        },
-        destroyed() {
-            window.removeEventListener('scroll', this.handleScroll)
         }
     }
 </script>
@@ -315,6 +360,7 @@
     #app {
         width: 100%;
         background: #fcefcd;
+        padding-bottom: 55px;
         img {
             width: 100%;
             height: auto;
@@ -323,10 +369,18 @@
             width: 167px;
             height: 45px;
             margin: 35px auto 43px;
-
+        }
+        .loading-container {
+            .huancunGif {
+                width: 40px;
+                height: 40px;
+            }
         }
         .xunbao{
             width: 100%;
+            height: 434px;
+            background: url("https://img.hongrenshuo.com.cn/h5/juejin-xunbao-ymz.png") no-repeat center;
+            background-size: 100% 100%;
             position: relative;
             .backbag{
                 position: absolute;
@@ -335,10 +389,15 @@
                 right: 3px;
                 bottom: 47px;
             }
+            .boxOut{
+                width: 82px;
+                height: 80px;
+            }
             .box{
                 position: absolute;
                 width: 82px;
                 height: 80px;
+                z-index: 100;
             }
             .box1{
                 left: 90px;
@@ -348,17 +407,24 @@
                 right: 41px;
                 top: 76px;
             }
-            .box3{
+            .box4{
                 left: 107px;
                 top: 184px;
             }
-            .box4{
+            .box3{
                 right: 10px;
                 top: 189px;
             }
             .box5{
                 right: 66px;
                 bottom: 60px;
+            }
+            .gorule{
+                width: 70px;
+                height: 70px;
+                position: absolute;
+                right: 14px;
+                top: 21px;
             }
         }
         .listTitle{
@@ -408,11 +474,26 @@
                 align-items: center;
                 justify-content: center;
                 position: relative;
-                img{
-                    background: red;
+                .headmm{
                     border: 2px solid #9e6b40;
                     border-radius: 50%;
                     box-sizing: border-box;
+                }
+                .headBottom1{
+                    position: absolute;
+                    width: 118px;
+                    height: 28px;
+                    bottom:-10px;
+                    left: 50%;
+                    margin-left: -59px;
+                }
+                .headBottom2{
+                    position: absolute;
+                    width: 100px;
+                    height: 24px;
+                    bottom:-6px;
+                    left: 50%;
+                    margin-left: -50px;
                 }
             }
             .tou1{
@@ -436,9 +517,9 @@
         .contentUl{
             width: 100%;
             background: #d6be66;
-            height: 500px;
             padding-top: 6px;
             box-sizing: border-box;
+            padding-bottom: 20px;
             .contentLi{
                 width: 337px;
                 height: 72px;
@@ -458,7 +539,6 @@
                 .headPic{
                     width: 59px;
                     height: 59px;
-                    background: red;
                 }
                 .desc{
                     flex:1;
@@ -478,7 +558,7 @@
                     }
                     .scroe{
                         font-size: 13px;
-                        color: #fce659;
+                        color: #fce659 !important;
                     }
                 }
             }
@@ -489,6 +569,140 @@
             font-size: 12px;
             color: #ad7c3e;
             line-height: 44px;
+        }
+        .bottom-tips{
+            width: 100%;
+            height: 55px;
+            background: url("https://img.hongrenshuo.com.cn/h5/juejin-bottomImage-ymz.png") no-repeat center;
+            background-size: 100% 100%;
+            text-align: center;
+            line-height: 55px;
+            font-size: 16px;
+            color: #775517;
+            font-weight: 500;
+            position: fixed;
+            left: 0;
+            bottom:0;
+            z-index: 200;
+        }
+        .modal{
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            left: 0;
+            top:0;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+        .modal-bag{
+            width: 100%;
+            height: 590px;
+            background: url("https://img.hongrenshuo.com.cn/h5/juejin-bagbg-ymz.png");
+            background-size: 100% 100%;
+            padding: 60px 33px 0;
+            box-sizing: border-box;
+            color: #774c22;
+            .mmkk{
+                overflow-x: hidden;
+                overflow-y: scroll;
+                width: 100%;
+                max-height: 500px;
+                .giftLi{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    width: 100%;
+                    border-bottom: 1px solid #bd995a;
+                    padding: 18px 13px 5px;
+                    box-sizing: border-box;
+                    .left{
+                        display: flex;
+                        align-items: center;
+                        .num{
+                            width: 32px;
+                            height: 32px;
+                            background: #ffe893;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 14px;
+                            border-radius: 50%;
+                            font-weight: 500;
+                        }
+                        .name{
+                            font-size: 15px;
+                            font-weight: 500;
+                            margin-left: 10px;
+                        }
+                    }
+                    .right{
+                        color: #fff;
+                        font-size: 14px;
+                        font-weight: 500;
+                        span{
+                            font-size: 16px;
+                        }
+                    }
+                }
+            }
+            .mmkk::-webkit-scrollbar {
+                display: none;
+            }
+        }
+        .modal-rule{
+            width: 371px;
+            height: 428px;
+        }
+        .box{
+            .openBox{
+                width: 370px;
+                height: 287px;
+                background: url("https://img.hongrenshuo.com.cn/h5/juejin-openhe-ymz.png");
+                background-size: 100% 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                .giftOut{
+                    margin-bottom: 80px;
+
+                    img{
+                        width: 135px;
+                        height: 165px;
+                    }
+                    .numgift{
+                        color: #fbe041;
+                        text-align: center;
+                        span{
+                            font-size: 22px;
+                            color: #fff;
+                        }
+                    }
+                    &:nth-child(2){
+                        margin-left: 40px;
+                    }
+                }
+            }
+            .desc{
+                text-align: center;
+                color: #fff;
+                /*font-weight: 400;*/
+                margin-top: 15px;
+                .p1{
+                    font-size: 14px;
+                }
+                .p2{
+                    font-size: 18px;
+                    margin-top: 6px;
+                }
+            }
+            .close{
+                width: 40px;
+                height: 40px;
+                margin: 40px auto 0;
+            }
         }
     }
 </style>

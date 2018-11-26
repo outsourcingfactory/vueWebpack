@@ -99,7 +99,7 @@
                             </div>
                             <div class="nickname">
                                 <div class="nickname-top">{{item.nickname}}</div>
-                                <div class="nickname-bottom">积分：{{item.voteNum}}</div>
+                                <div class="nickname-bottom">积分：{{item.score}}</div>
                             </div>
                             <div class="vote-btn" @click="goRoom('',item.uid)">
                                 <img src="https://img.hongrenshuo.com.cn/h5/virtuallive-support.png"/>
@@ -361,7 +361,7 @@
                 let time2 = 1542902400; //11月23号0点
                 if (nowTime < time1) {
                     this.period = 1;
-                }else if (time1 <= nowTime < time2) {
+                }else if (time1 <= nowTime && nowTime < time2) {
                     this.period = 2;
                 }else{
                     this.period = 3;
