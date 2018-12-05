@@ -43,7 +43,9 @@
         width: 375px;
         height: 667px;
         background: #fff;
-        position: relative;
+        position: fixed;
+        left: 0;
+        top:0;
         .right {
             position: absolute;
             right: 8px;

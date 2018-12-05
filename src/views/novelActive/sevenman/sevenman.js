@@ -6,8 +6,9 @@ import 'assets/css/base.scss'
 import 'lib-flexible/flexible.js'
 import fastclick from 'fastclick'
 import axios from 'assets/js/api'
-
+import wxContent from 'assets/js/wxContent';
 Vue.prototype.$axios = axios;
+Vue.prototype.$wxContent = wxContent;
 fastclick.attach(document.body)
 
 import 'babel-polyfill'

@@ -1,67 +1,63 @@
 <template>
     <div id="app">
-        <div v-show="!showWx">
-            <div class="topimage">
-                <img src="https://img.hongrenshuo.com.cn/h5/sevenman-topimage-ymz.png">
-                <div class="rule" @click="goRule"></div>
-            </div>
-            <div class="container-wrapper">
-                <div class="title">
-                    <div @click="tabSwitch(1)" :class="leftActive?'hot activeTab':'hot'">热度
-                        <div class="san" v-show="leftActive"></div>
-                    </div>
-                    <div @click="tabSwitch(2)" :class="rightActive?'time activeTab':'time'">最新
-                        <div class="san" v-show="rightActive"></div>
-                    </div>
-                </div>
-                <div class="contentdes">人气值每5-10分钟更新一次</div>
-                <div class="content">
-                    <div class="contentLiOut" v-for="(item,index) in hotList"
-                         @click="_goNovel(item.novelId,item.chapterId)">
-                        <div class="contentLi">
-                            <img v-lazy="`${item.coverPicUrl}?x-oss-process=image/resize,m_mfit,h_460,w_342,limit_0/crop,w_342,h_460,g_center`"
-                                 class="bgPic">
-                            <div class="zan">
-                                {{item.totalViewCount}}人气
-                            </div>
-                            <div class="bottom">
-                                <div class="desc">
-                                    {{item.introduce}}
-                                </div>
-                                <div class="userInfo" @click.stop="_goUid(item.uid)">
-                                    <img :src="item.headPic" alt="">
-                                    <div class="nickName">
-                                        {{item.nickname}}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="name">
-                            {{item.title}}
-                        </div>
-                    </div>
-                    <div v-show="hotList.length == 0 || hotList==null && !showload" class="loading-container">
-                        <div>
-                            <img src="https://img.hongrenshuo.com.cn/h5/kstar-empty-ymz.png" alt=""
-                                 class="emptyPng">
-                            <div class="emptyTips">
-                                暂无排行榜单数据
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <ScrollUpLoading :tipDesc="tipDesc" :showload="showload" :color="'#fff'"
-                                     v-show="hotList.length != 0"></ScrollUpLoading>
-                </div>
-            </div>
-            <div class="tips">本活动最终解释权归克拉克拉所有</div>
-            <div class="bottomImage" @click="_goBottom()">
-                <img src="https://img.hongrenshuo.com.cn/h5/sevenman-bottomimage-ymz.png">
-            </div>
-
+        <div class="topimage">
+            <img src="https://img.hongrenshuo.com.cn/h5/sevenman-topimage-ymz.png">
+            <div class="rule" @click="goRule"></div>
         </div>
-        <Wxcontent v-show="showWx"></Wxcontent>
+        <div class="container-wrapper">
+            <div class="title">
+                <div @click="tabSwitch(1)" :class="leftActive?'hot activeTab':'hot'">热度
+                    <div class="san" v-show="leftActive"></div>
+                </div>
+                <div @click="tabSwitch(2)" :class="rightActive?'time activeTab':'time'">最新
+                    <div class="san" v-show="rightActive"></div>
+                </div>
+            </div>
+            <div class="contentdes">人气值每5-10分钟更新一次</div>
+            <div class="content">
+                <div class="contentLiOut" v-for="(item,index) in hotList"
+                     @click="_goNovel(item.novelId,item.chapterId)">
+                    <div class="contentLi">
+                        <img v-lazy="`${item.coverPicUrl}?x-oss-process=image/resize,m_mfit,h_460,w_342,limit_0/crop,w_342,h_460,g_center`"
+                             class="bgPic">
+                        <div class="zan">
+                            {{item.totalViewCount}}人气
+                        </div>
+                        <div class="bottom">
+                            <div class="desc">
+                                {{item.introduce}}
+                            </div>
+                            <div class="userInfo" @click.stop="_goUid(item.uid)">
+                                <img :src="item.headPic" alt="">
+                                <div class="nickName">
+                                    {{item.nickname}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="name">
+                        {{item.title}}
+                    </div>
+                </div>
+                <div v-show="hotList.length == 0 || hotList==null && !showload" class="loading-container">
+                    <div>
+                        <img src="https://img.hongrenshuo.com.cn/h5/kstar-empty-ymz.png" alt=""
+                             class="emptyPng">
+                        <div class="emptyTips">
+                            暂无排行榜单数据
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <ScrollUpLoading :tipDesc="tipDesc" :showload="showload" :color="'#fff'"
+                                 v-show="hotList.length != 0"></ScrollUpLoading>
+            </div>
+        </div>
+        <div class="tips">本活动最终解释权归克拉克拉所有</div>
+        <div class="bottomImage" @click="_goBottom()">
+            <img src="https://img.hongrenshuo.com.cn/h5/sevenman-bottomimage-ymz.png">
+        </div>
     </div>
 </template>
 
@@ -83,7 +79,6 @@
                 showload: true,
                 algoBottom: false,
                 tipDesc: '上滑加载更多...',
-                showWx: false,
                 type: 1,
                 leftActive: true,
                 rightActive: false
@@ -215,7 +210,7 @@
                     window.location.href = url;
                 } else {
                     if (na.match(/micromessenger/i) && na.match(/(iphone|ipod|ios|ipad)/i)) {
-                        this.showWx = true;
+                        this.$wxContent();
                     } else {
                         var data = {};
                         data.stage = 'fiveman'; // 自定义深度链接阶段，多个用逗号分隔，【可选】
