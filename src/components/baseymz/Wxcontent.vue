@@ -40,46 +40,47 @@
 
 <style lang="scss" scoped="">
     .wxContent {
-        width: 375px;
-        height: 667px;
+        width: 100%;
+        height: 100%;
         background: #fff;
         position: fixed;
         left: 0;
         top:0;
+        z-index: 1000;
         .right {
             position: absolute;
-            right: 8px;
-            top: 8px;
-            width: 85px;
-            height: 77px;
+            right: 16px;
+            top: 16px;
+            width: 170px;
+            height: 154px;
             img {
                 width: 100%;
                 height: auto;
             }
         }
         .wxTitle {
-            padding: 20px;
+            padding: 40px;
             box-sizing: border-box;
             color: #3F3131;
-            font-size: 16px;
-            line-height: 27px;
+            font-size: 32px;
+            line-height: 54px;
             z-index: 100;
             font-weight: 400;
             .hd {
                 color: #9B9898;
-                font-size: 14px;
+                font-size: 28px;
             }
             .dian {
-                width: 4px;
-                height: 4px;
+                width: 8px;
+                height: 8px;
                 border-radius: 50%;
                 background: #3F3131;
-                line-height: 27px;
+                line-height: 54px;
                 vertical-align: middle;
-                margin-left: 5px;
+                margin-left: 10px;
                 display: inline-block;
                 &:nth-child(1) {
-                    margin-left: 12.5px;
+                    margin-left: 25px;
                 }
             }
         }
@@ -88,24 +89,24 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 20px;
+            height: 40px;
             color: #9B9898;
-            margin: 60px 0;
+            margin: 120px 0;
             .line {
-                width: 64px;
-                height: 1PX;
+                width: 128px;
+                height: 1px;
                 background: #9B9898;
             }
             .why {
-                margin: 0 18px;
-                font-size: 14px;
+                margin: 0 36px;
+                font-size: 28px;
             }
         }
         .contentLogo {
             width: 100%;
             .wxLogo {
-                width: 83px;
-                height: 83px;
+                width: 166px;
+                height: 166px;
                 margin: 0 auto;
                 img {
                     width: 100%;
@@ -113,25 +114,25 @@
                 }
             }
             .wxnickName {
-                width: 94px;
-                height: 23px;
-                margin: 13.5px auto;
+                width: 188px;
+                height: 46px;
+                margin: 27px auto;
                 img {
                     width: 100%;
                     height: auto;
                 }
             }
             .nowload {
-                width: 143px;
-                height: 44px;
+                width: 286px;
+                height: 88px;
                 border: 1px solid #FB5D51;
                 box-sizing: border-box;
-                line-height: 44px;
+                line-height: 88px;
                 text-align: center;
                 color: #FB5D51;
                 margin: 0 auto;
-                font-size: 16px;
-                border-radius: 22px;
+                font-size: 32px;
+                border-radius: 44px;
             }
         }
     }

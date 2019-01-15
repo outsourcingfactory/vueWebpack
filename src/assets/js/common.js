@@ -209,6 +209,12 @@ export let ymzBaseFun = {
         if (r != null) return decodeURIComponent(r[2]);
         return null;
     },
+    getUrlString:function (name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if(r != null) return decodeURIComponent(r[2]);
+        return null;
+    },
     /**
      * 没有问号补问号方法
      */
@@ -242,7 +248,14 @@ export function goVideo(videoid) {
         window.location.href = 'https://v.hongdoulive.com/v/video?videoId='+videoid;
     }
 }
-
+export function isPoneAvailable(pone) {
+    var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+    if(!myreg.test(pone)) {
+        return false;
+    } else {
+        return true;
+    }
+}
 
 
 

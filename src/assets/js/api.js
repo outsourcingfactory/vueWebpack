@@ -1,13 +1,16 @@
 import axios from 'axios';
+import qs from 'qs';
 let baseURL
 if (process.env.NODE_ENV == 'development') {
     baseURL = 'http://playtest.uxin.com/';
-    // baseURL = 'https://live.hongdoulive.com';
+    baseURL = 'https://live.hongdoulive.com';
+    // baseURL = 'http://www.testymz.com:7071';
 } else if (process.env.NODE_ENV == 'debug') {
     baseURL = 'http://playtest.uxin.com/';
 } else if (process.env.NODE_ENV == 'production') {
     baseURL = 'https://live.hongdoulive.com';
-    baseURL = 'http://playtest.uxin.com/';
+    // baseURL = 'http://playtest.uxin.com/';
+    // baseURL = 'https://testwechat.hongdoulive.com';
 }
 
 /**
@@ -17,12 +20,14 @@ class Axios {
     constructor() {
         this.init();
     };
-
     /**
         * 初始化
         */
     init() {
         axios.defaults.baseURL = baseURL;
+        // axios.defaults.headers = {
+        //     "Content-Type": "text/html"
+        // }
     };
 
     /**
@@ -59,11 +64,11 @@ class Axios {
         */
     HttpPost(url, Data, urlData) {
         this.promise = new Promise((resolve, reject) => {
-            for (const item in urlData) {
-                url += '/' + urlData[item];
-            }
-            ;
-            axios.post(url, Data)
+            // for (const item in urlData) {
+            //     url += '/' + urlData[item];
+            // }
+            axios.post(url,qs.stringify(Data))
+            // axios.post(url,Data)
                 .then((data) => {
                     if (typeof data == 'string') {
                         resolve(JSON.parse(data));

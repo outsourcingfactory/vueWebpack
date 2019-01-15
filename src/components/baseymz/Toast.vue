@@ -26,14 +26,14 @@
         top:50%;
         transform:translate(-50%,-50%) scale(1);
         word-wrap:break-word;
-        padding:10px;
+        padding:20px;
         text-align: center;
         z-index:9999;
-        font-size:16px;
-        line-height: 22px;
+        font-size:32px;
+        line-height: 44px;
         max-width:80%;
         color: #fff;
-        border-radius: 6px;
+        border-radius: 12px;
         background: rgba(0,0,0,0.7);
         overflow: hidden;
     }

@@ -33,15 +33,15 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 30px;
+        height: 60px;
         .meile{
-            font-size: 13px;
+            font-size: 26px;
             color: #000;
         }
         img{
-            width: 15px;
-            height: 15px;
-            margin-left: 10px;
+            width: 30px;
+            height: 30px;
+            margin-left: 20px;
         }
     }
 </style>
