@@ -83,7 +83,7 @@
                     })
                     return
                 }
-                this.$axios.HttpPost('/Vote/aj_checkcode', {code:this.input1})
+                this.$axios.HttpGet('/Vote/aj_checkcodes', {code:this.input1})
                     .then((res) => {
                         console.log(res.data)
                         that.$emit('checkCode', res.data);
@@ -149,9 +149,9 @@
                     box-sizing: border-box;
                     font-size: 0;
                     .verifi {
-                        width: 161px;
+                        width: 121px;
                         height: 37px;
-                        line-height: 37px;
+                        line-height: 14px;
                         font-size: 14px;
                         vertical-align: top;
                         padding-left: 10px;
@@ -160,7 +160,7 @@
                     }
                     .sendNumber {
                         display: inline-block;
-                        width: 83px;
+                        width: 123px;
                         height:37px;
                         line-height: 40px;
                         border-radius: 6px;

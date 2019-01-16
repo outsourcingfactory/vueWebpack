@@ -10,7 +10,7 @@
         <div class="three-image" v-for="item in videoAll.showVideoList" @click="goVideo(item.videoDetailResp.videoResp.idStr)" v-show="!item.example">
             <img v-lazy="`${item.videoDetailResp.videoResp.coverPic}&x-oss-process=image/resize,m_mfit,h_346,w_248,limit_0/crop,w_248,h_346,g_center`">
             <div class="zan">
-                {{item.likeCount}}点赞
+                甜蜜值 {{item.likeCount}}
             </div>
         </div>
     </div>
@@ -67,13 +67,13 @@
                 position: absolute;
                 padding: 4px;
                 box-sizing: border-box;
-                color: #2B2727;
+                color: #fff;
                 font-size: 12px;
                 top: 10px;
                 left: 10px;
                 border-radius:3px;
-                background-color: #fafbfd;
-                border: 0.5px solid #C7C7C7;
+                background-color: #ff5e62;
+
             }
             &:nth-child(3n-2){
                 margin-left: 0;

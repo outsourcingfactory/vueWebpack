@@ -25,8 +25,8 @@ module.exports = {
         // `npm run build --report`
         // Set to `true` or `false` to always turn it on or off
         bundleAnalyzerReport: process.env.npm_config_report,
-        productionEntries:{'views/videoActive/sweetChristmas': './src/views/videoActive/sweetChristmas/sweetChristmas.js',},
-        productionPages:{'views/videoActive/sweetChristmas': './src/views/videoActive/sweetChristmas/sweetChristmas.html',}
+        productionEntries:{'views/novelActive/paynovel': './src/views/novelActive/paynovel/paynovel.js',},
+        productionPages:{'views/novelAcive/paynovel': './src/views/novelAcive/paynovel/paynovel.html',}
     },
     dev: {
         env: require('./dev.env'),

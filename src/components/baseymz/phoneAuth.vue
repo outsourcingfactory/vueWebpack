@@ -203,7 +203,7 @@
                             width: 0;
                             flex: 1;
                             height: 37px;
-                            line-height: 37px;
+                            line-height: 12px;
                             font-size: 12px;
                             vertical-align: top;
                             padding-left: 10px;
