@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>以爱之名 缘定三生</title>
+</head>
+<body>
+<div id="app">
+
+</div>
+<!-- built files will be auto injected -->
+<script>
+    var shareTitle = '以爱之名 缘定三生';
+    var shareDesc = '在这个甜蜜的日子，爱你想让你知道～';
+    var shareImageUrl = 'https://img.hongrenshuo.com.cn/h5/thenameoflove-share.png';
+    var na = navigator.userAgent.toLowerCase();
+    function h5share() {
+        var shareInfo = new Object();
+        shareInfo.title = shareTitle;
+        shareInfo.des = shareDesc;
+        shareInfo.imgUrl = shareImageUrl;
+        shareInfo.tag1 = '';
+        if (na.match(/(iphone|ipod|ios|ipad)/i)) {
+            return JSON.stringify(shareInfo);
+        } else {
+            window.JsInterface.onReceiveShareContent(JSON.stringify(shareInfo));
+        }
+    }
+</script>
+</body>
+</html>

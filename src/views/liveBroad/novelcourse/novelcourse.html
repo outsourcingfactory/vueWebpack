@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>克拉小说教程站</title>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?72fa22a19c7f8e8fda7babf8e7560364";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+</head>
+<body>
+<div id="app">
+
+</div>
+<script type="text/javascript" src="https://static.lkme.cc/linkedme.min.js"></script>
+<!-- built files will be auto injected -->
+<script>
+    var shareTitle = '克拉克拉小说教程站';
+    var shareDesc = '写作，APP使用和素材方面的疑问来这里看哦';
+    var shareImageUrl = 'https://img.hongrenshuo.com.cn/h5/novelcourse-share.png';
+    var na = navigator.userAgent.toLowerCase();
+    function h5share() {
+        var shareInfo = new Object();
+        shareInfo.title = shareTitle;
+        shareInfo.des = shareDesc;
+        shareInfo.imgUrl = shareImageUrl;
+        shareInfo.tag1 = '';
+        if (na.match(/(iphone|ipod|ios|ipad)/i)) {
+            return JSON.stringify(shareInfo);
+        } else {
+            window.JsInterface.onReceiveShareContent(JSON.stringify(shareInfo));
+        }
+    }
+</script>
+</body>
+</html>
